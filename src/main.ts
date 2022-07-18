@@ -6,6 +6,8 @@ function render(){
   mainEl.textContent = ""
   let h1El=document.createElement('h1')
   h1El.textContent = "Finishing the project"
+  let h2El=document.createElement('h2')
+  h2El.textContent = "Cool, it works!"
   mainEl.append(h1El)
 }
 render()
