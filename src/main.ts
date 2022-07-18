@@ -157,7 +157,7 @@ function render() {
   cityNameEl.className = "city-name";
   cityNameEl.textContent = `Weather in ${state.city}`;
 
-  let currentTemperatureEl = document.createElement("h3");
+  let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
 
   currentTemperatureEl.textContent = `${state.weatherData['current'].temp_c} °C`;
