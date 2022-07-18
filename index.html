@@ -7,7 +7,33 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="container">
+        <form class="search">
+          <input type="text" placeholder="Search City" />
+        </form>
+        <h1 class="city-name">Tirana</h1>
+        <h2 class="current-temperature">35 °C</h2>
+        <div class="description">
+          <div class="text">Sunny</div>
+
+          <img
+            class="icon"
+            src="http://cdn.weatherapi.com/weather/64x64/day/113.png"
+            alt="sun"
+          />
+          <div class="windspeed">Windspeed: 3.6 km/h</div>
+          <div class="humidity">Humidity: 27%</div>
+          <div class="feels-like">Feels like: 33.2 °C</div>
+          <div class="last-updated">
+            Last updated:
+            <span class="date">18/07/2022,</span>
+
+            <span class="time">12:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
