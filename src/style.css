@@ -19,7 +19,7 @@
   background-color: #b9ddfe;
 }
 .container {
-  background-color:rgba(0, 0, 0, 0.534);
+  background-color:rgba(0, 0, 0, 0.498);
   padding: 1.5rem;
   display: grid;
   grid-auto-flow: row;
@@ -52,6 +52,9 @@
   color: rgba(0, 0, 0, 0.305);
   font-weight: 100;
 } */
+
+/* i remove this code because tis icon will always be 80px so i put it on the ts code now we don't need even a class for that one
 .icon {
   width: 80px;
 }
+*/
