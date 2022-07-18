@@ -5,7 +5,7 @@ function render(){
   if (mainEl===null)return
   mainEl.textContent = ""
   let h1El=document.createElement('h1')
-  h1El.textContent = "Starting JS Project"
+  h1El.textContent = "Finishing the project"
   mainEl.append(h1El)
 }
 render()
