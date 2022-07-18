@@ -1,24 +1,140 @@
 import "./style.css";
-
+type WeatherData = {
+  location: {
+    name: string;
+    region: string;
+    country: string;
+    lat: number;
+    lon: number;
+    tz_id: string;
+    localtime_epoch: number;
+    localtime: string;
+  };
+  current: {
+    last_updated_epoch: number;
+    last_updated: string;
+    temp_c: number;
+    temp_f: number;
+    is_day: number;
+    condition: {
+      text: string;
+      icon: string;
+      code: number;
+    };
+    wind_mph: number;
+    wind_kph: number;
+    wind_degree: number;
+    wind_dir: string;
+    pressure_mb: number;
+    pressure_in: number;
+    precip_mm: number;
+    precip_in: number;
+    humidity: number;
+    cloud: number;
+    feelslike_c: number;
+    feelslike_f: number;
+    vis_km: number;
+    vis_miles: number;
+    uv: number;
+    gust_mph: number;
+    gust_kph: number;
+  };
+  forecast: {
+    forecastday: {
+      date: string;
+      date_epoch: number;
+      day: {
+        maxtemp_c: number;
+        maxtemp_f: number;
+        mintemp_c: number;
+        mintemp_f: number;
+        avgtemp_c: number;
+        avgtemp_f: number;
+        maxwind_mph: number;
+        maxwind_kph: number;
+        totalprecip_mm: number;
+        totalprecip_in: number;
+        avgvis_km: number;
+        avgvis_miles: number;
+        avghumidity: number;
+        condition: {
+          text: string;
+          icon: string;
+          code: number;
+        };
+        uv: number;
+      };
+      astro: {
+        sunrise: string;
+        sunset: string;
+        moonrise: string;
+        moonset: string;
+        moon_phase: string;
+        moon_illumination: number;
+      };
+      hour: {
+        time_epoch: number;
+        time: string;
+        temp_c: number;
+        temp_f: number;
+        is_day: number;
+        condition: {
+          text: string;
+          icon: string;
+          code: number;
+        };
+        wind_mph: number;
+        wind_kph: number;
+        wind_degree: number;
+        wind_dir: string;
+        pressure_mb: number;
+        pressure_in: number;
+        precip_mm: number;
+        precip_in: number;
+        humidity: number;
+        cloud: number;
+        feelslike_c: number;
+        feelslike_f: number;
+        windchill_c: number;
+        windchill_f: number;
+        heatindex_c: number;
+        heatindex_f: number;
+        dewpoint_c: number;
+        dewpoint_f: number;
+        will_it_rain: number;
+        will_it_snow: number;
+        vis_km: number;
+        vis_miles: number;
+        uv: number;
+        gust_mph: number;
+        gust_kph: number;
+      };
+    };
+  };
+};
+type State = {
+  apiKey: string;
+  city: string;
+  weatherData: WeatherData;
+};
+// Kindof created stata, will update it later
 let state = {
   apiKey: "d8e39a035f63c724b30d68bd39bb4022",
-  city: "new york",
-  weather: {},
+  city: "New york",
+  weatherData: {},
 };
-
+// create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
   fetch(
     `http://api.weatherapi.com/v1/forecast.json?key=99e85ef67b8f4f57852185003221707&q=${state.city}&aqi=no`
   )
     .then((response) => response.json())
     .then((data) => {
-      state.weather = data;
+      state.weatherData = data;
+      render();
     });
 }
-
-getWeatherDataFromServer();
-window.state = state;
-
+// rendering everything on a big function
 function render() {
   let mainEl = document.querySelector("#app");
   if (mainEl === null) return;
@@ -36,42 +152,43 @@ function render() {
 
   let cityNameEl = document.createElement("h1");
   cityNameEl.className = "city-name";
-  cityNameEl.textContent = "Tirana";
+  cityNameEl.textContent = state.city;
 
   let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
-  currentTemperatureEl.textContent = "35 °C";
+//@ts-ignore
+  currentTemperatureEl.textContent = state.weatherData["current"].temp_c;
 
   let descriptionEl = document.createElement("div");
   descriptionEl.className = "description";
 
   let textEl = document.createElement("div");
   textEl.className = "text";
-  textEl.textContent = "Sunny";
+  textEl.textContent = state.weatherData["current"].condition.text;
 
   let iconEl = document.createElement("img");
   iconEl.className = "icon";
-  iconEl.src = "http://cdn.weatherapi.com/weather/64x64/day/113.png";
+  iconEl.src = state.weatherData["current"].condition.icon;
   iconEl.alt = "sun";
 
   let windspeedEl = document.createElement("div");
   windspeedEl.className = "windspeed";
-  windspeedEl.textContent = "Windspeed: 3.6 km/h";
+  windspeedEl.textContent = `Wind Speed: ${state.weatherData["current"].wind_kph} km/h`;
 
   let humidityEl = document.createElement("div");
   humidityEl.className = "humidity";
-  humidityEl.textContent = "Humidity: 27%";
+  humidityEl.textContent = `Humidity: ${state.weatherData["current"].humidity}%`;
 
   let feelsLikeEl = document.createElement("div");
   feelsLikeEl.className = "feels-like";
-  feelsLikeEl.textContent = "Feels like: 33.2 °C";
+  feelsLikeEl.textContent = `Feels Like: ${state.weatherData["current"].feelslike_c}°C`;
 
   let lastUpdatedEl = document.createElement("div");
   lastUpdatedEl.className = "last-updated";
 
   let timeEl = document.createElement("span");
   timeEl.className = "time";
-  timeEl.textContent = "14:15";
+  timeEl.textContent = state.weatherData["current"].last_updated;
 
   formEl.appendChild(inputEl);
   descriptionEl.append(textEl, iconEl);
@@ -89,4 +206,5 @@ function render() {
   );
   mainEl.append(containerDiv);
 }
+getWeatherDataFromServer();
 render();
