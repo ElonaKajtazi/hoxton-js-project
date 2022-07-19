@@ -1,5 +1,5 @@
 import "./style.css";
-type WeatherData ={
+type WeatherData = {
   location: {
     name: string;
     region: string;
@@ -9,7 +9,7 @@ type WeatherData ={
     tz_id: string;
     localtime_epoch: number;
     localtime: string;
-  },
+  };
   current: {
     last_updated_epoch: number;
     last_updated: string;
@@ -38,7 +38,7 @@ type WeatherData ={
     uv: number;
     gust_mph: number;
     gust_kph: number;
-  },
+  };
   // forecast: {
   //   forecastday: [
   //     {
@@ -123,7 +123,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Pristina",
+  city: "Gjakova",
   weatherData: [],
 };
 // create a function that will get the weather data from the API
@@ -152,15 +152,20 @@ function render() {
   inputEl.className = "search";
   inputEl.type = "text";
   inputEl.placeholder = "Search City";
-
+  let cityDiv = document.createElement("div");
+  cityDiv.className = "city";
+  let pinDropEl = document.createElement("span");
+  pinDropEl.className = "material-symbols-outlined";
+  pinDropEl.textContent = "pin_drop";
+  
   let cityNameEl = document.createElement("h2");
   cityNameEl.className = "city-name";
-  cityNameEl.textContent = `Weather in ${state.city}`;
+  cityNameEl.textContent = state.city;
 
   let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
 
-  currentTemperatureEl.textContent = `${state.weatherData['current'].temp_c} °C`;
+  currentTemperatureEl.textContent = `${state.weatherData["current"].temp_c} °C`;
 
   let descriptionEl = document.createElement("div");
   descriptionEl.className = "description";
@@ -196,11 +201,12 @@ function render() {
 
   formEl.appendChild(inputEl);
   descriptionEl.append(textEl, iconEl);
+  cityDiv.append(pinDropEl, cityNameEl);
 
   lastUpdatedEl.append("Last updated: ", timeEl);
   containerDiv.append(
     formEl,
-    cityNameEl,
+    cityDiv,
     currentTemperatureEl,
     descriptionEl,
     windspeedEl,
