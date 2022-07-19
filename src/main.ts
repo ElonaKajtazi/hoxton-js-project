@@ -220,4 +220,5 @@ function render() {
 }
 getWeatherDataFromServer();
 render();
-//
+
+
