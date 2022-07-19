@@ -119,14 +119,14 @@ type State = {
   apiKey: string;
   city: string;
   weatherData: WeatherData | null;
-  show: "currentWeather" | "moreDetails";
+  show: "null" | "moreDetails";
 };
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
   city: "Peje",
   weatherData: null,
-  show: "currentWeather",
+  show: "null",
 };
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
@@ -139,8 +139,15 @@ function getWeatherDataFromServer() {
       render();
     });
 }
+function getDetailsPage() {
+  state.show = "moreDetails";
+  render();
+}
 
-
+function getCurrentWeatherPage() {
+  state.show = "currentWeather";
+  render();
+}
 // rendering everything on a big function
 function renderCurrentWeather(mainEl: Element) {
   let containerDiv = document.createElement("div");
@@ -202,6 +209,9 @@ function renderCurrentWeather(mainEl: Element) {
   let moreDetailsEl = document.createElement("p");
   moreDetailsEl.className = "more-details";
   moreDetailsEl.textContent = "More details";
+  moreDetailsEl.addEventListener("click", function () {
+    getDetailsPage();
+  });
 
   formEl.appendChild(inputEl);
   descriptionEl.append(iconEl, textEl);
@@ -222,36 +232,6 @@ function renderCurrentWeather(mainEl: Element) {
   mainEl.append(containerDiv);
 }
 function renderDetaulsPage(mainEl: Element) {
-  //   <div class="details-page">
-  //   <h1 class="details__city-name">Gjakove</h1>
-  //   <div class="weather-info">
-  //   <div class="main-info">
-
-  //     <div class="icon-temp">
-
-  //         <img
-  //           class="details__icon"
-  //           src="http://cdn.weatherapi.com/weather/64x64/day/113.png"
-  //           alt="suny weather"
-  //         />
-
-  //       <h2 class="details__current-temperature">17 °C </h2>
-  //     </div>
-  //     <h3 class="weather-description">Sunny</h3>
-  //     <p class="details__feels-like">Feels like: 20 °C</p>
-  //     <div class="temperatures">
-  //       <span class="max-temp"> Max: 32 °C</span> /
-  //       <span class="min-temp">Min: 15 °C</span>
-  //     </div>
-  //   </div>
-
-  //   <div class="more-info">
-  //     <p class="details__percipitation">Percipitation: 0%</p>
-  //     <p class="details__wind-speed">Wind speed: 3.6 km/h</p>
-  //     <p class="details__humidity">Humidity: 27%</p>
-  //   </div>
-  // </div>
-  // </div>
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
 
@@ -308,11 +288,6 @@ function renderDetaulsPage(mainEl: Element) {
     detailsTemperaturesDiv
   );
 
-  //   <div class="more-info">
-  //     <p class="details__percipitation">Percipitation: 0%</p>
-  //     <p class="details__wind-speed">Wind speed: 3.6 km/h</p>
-  //     <p class="details__humidity">Humidity: 27%</p>
-  //   </div>
   let detailsMoreInfoDiv = document.createElement("div");
   detailsMoreInfoDiv.className = "more-info";
 
@@ -346,7 +321,8 @@ function render() {
   if (mainEl === null) return;
   mainEl.textContent = "";
 
-  renderCurrentWeather(mainEl);
+
+  if (state.show === "null") renderCurrentWeather(mainEl);
+  else if (state.show === "moreDetails") renderDetaulsPage(mainEl);
 }
 getWeatherDataFromServer();
-render();
