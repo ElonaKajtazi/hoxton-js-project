@@ -118,13 +118,13 @@ type WeatherData = {
 type State = {
   apiKey: string;
   city: string;
-  weatherData: WeatherData[];
+  weatherData: WeatherData| null
 };
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Shishman",
-  weatherData: [],
+  city: "Singapore",
+  weatherData: null,
 };
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
@@ -164,8 +164,9 @@ function renderCurrentWeather(mainEl: Element) {
   //   let feelsLikeEl = document.createElement("p");
   // feelsLikeEl.className = "feels-like";
   // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
-
-  currentTemperatureEl.textContent = `${state.weatherData["current"].temp_c} °C`;
+if(state.weatherData===null) return
+  
+  currentTemperatureEl.textContent = `${state.weatherData.current.temp_c} °C`;
 
   let descriptionEl = document.createElement("div");
   descriptionEl.className = "description";
@@ -217,12 +218,14 @@ function renderCurrentWeather(mainEl: Element) {
   );
   mainEl.append(containerDiv);
 }
+
 function render() {
   let mainEl = document.querySelector("#app");
   if (mainEl === null) return;
   mainEl.textContent = "";
 
   renderCurrentWeather(mainEl);
+  
 }
 getWeatherDataFromServer();
 render();
