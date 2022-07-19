@@ -123,7 +123,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Singapore",
+  city: "Pristina",
   weatherData: null,
 };
 // create a function that will get the weather data from the API
