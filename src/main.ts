@@ -139,16 +139,17 @@ function getWeatherDataFromServer() {
       render();
     });
 }
+// This function will display the Details weather page
 function getDetailsPage() {
   state.show = "moreDetails";
   render();
 }
-
+// This function will display the current weather page
 function getCurrentWeatherPage() {
-  state.show = "currentWeather";
+  state.show = "null";
   render();
 }
-// rendering everything on a big function
+// This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
@@ -231,6 +232,7 @@ function renderCurrentWeather(mainEl: Element) {
   );
   mainEl.append(containerDiv);
 }
+// This function will render the details weather page
 function renderDetaulsPage(mainEl: Element) {
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
@@ -316,13 +318,16 @@ function renderDetaulsPage(mainEl: Element) {
   detailsPageDiv.append(detailsCityNameH1, detailsWeatherInfoDiv);
   mainEl.append(detailsPageDiv);
 }
+// Rendering everything
 function render() {
+  //Selecting the main element from html file
   let mainEl = document.querySelector("#app");
   if (mainEl === null) return;
+  // Clearing the main element
   mainEl.textContent = "";
-
-
+// If the state is null, render the current weather page otherwise render the details weather page
   if (state.show === "null") renderCurrentWeather(mainEl);
-  else if (state.show === "moreDetails") renderDetaulsPage(mainEl);
+  if (state.show === "moreDetails") renderDetaulsPage(mainEl);
 }
+
 getWeatherDataFromServer();
