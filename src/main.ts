@@ -157,7 +157,7 @@ function render() {
   let pinDropEl = document.createElement("span");
   pinDropEl.className = "material-symbols-outlined";
   pinDropEl.textContent = "pin_drop";
-  
+
   let cityNameEl = document.createElement("h2");
   cityNameEl.className = "city-name";
   cityNameEl.textContent = state.city;
@@ -170,7 +170,7 @@ function render() {
   let descriptionEl = document.createElement("div");
   descriptionEl.className = "description";
 
-  let textEl = document.createElement("div");
+  let textEl = document.createElement("h3");
   textEl.className = "text";
   textEl.textContent = state.weatherData["current"].condition.text;
 
@@ -190,28 +190,30 @@ function render() {
 
   let feelsLikeEl = document.createElement("div");
   feelsLikeEl.className = "feels-like";
-  feelsLikeEl.textContent = `Feels Like: ${state.weatherData["current"].feelslike_c}°C`;
+  feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
 
   let lastUpdatedEl = document.createElement("div");
   lastUpdatedEl.className = "last-updated";
 
   let timeEl = document.createElement("span");
   timeEl.className = "time";
-  timeEl.textContent = state.weatherData["current"].last_updated;
+  // timeEl.textContent = state.weatherData["current"].last_updated;
 
   formEl.appendChild(inputEl);
-  descriptionEl.append(textEl, iconEl);
+  descriptionEl.append(iconEl, textEl);
   cityDiv.append(pinDropEl, cityNameEl);
 
-  lastUpdatedEl.append("Last updated: ", timeEl);
+  // lastUpdatedEl.append("Last updated: ", timeEl);
   containerDiv.append(
     formEl,
     cityDiv,
-    currentTemperatureEl,
     descriptionEl,
+    currentTemperatureEl,
+    feelsLikeEl,
+
     windspeedEl,
     humidityEl,
-    feelsLikeEl,
+
     lastUpdatedEl
   );
   mainEl.append(containerDiv);

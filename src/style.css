@@ -6,6 +6,9 @@
   color: #2c3e50;
   margin-top: 60px;
 } */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -17,10 +20,11 @@
   width: 100vw;
   height: 100vh;
   background-color: #b9ddfe;
+  font-family: "Nunito Sans", sans-serif;
 }
 .container {
   background-color: rgba(0, 0, 0, 0.498);
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   display: grid;
   grid-auto-flow: row;
   border-radius: 10px;
@@ -28,6 +32,7 @@
   width: 250px;
   text-align: start;
   color: white;
+  width: 250px;
 }
 /* form {
   display: grid;
@@ -39,6 +44,7 @@
   padding: 0.3rem;
   border-radius: 5px;
   color: aqua;
+  width: 90%;
 
   /* color: black; */
 }
@@ -53,13 +59,13 @@
   font-weight: 100;
 } */
 
-/* i remove this code because tis icon will always be 80px so i put it on the ts code now we don't need even a class for that one
 .icon {
-  width: 80px;
+  width: 90px;
 }
-*/
+
 .city {
   display: grid;
   grid-template-columns: auto 1fr;
+  align-items: center;
   gap: 0.5rem;
 }
