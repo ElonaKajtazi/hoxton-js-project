@@ -173,7 +173,7 @@ function renderCurrentWeather(mainEl: Element) {
 
   let textEl = document.createElement("h3");
   textEl.className = "text";
-  textEl.textContent = state.weatherData["current"].condition.text;
+  textEl.textContent = state.weatherData.current.condition.text;
 
   let iconEl = document.createElement("img");
   iconEl.className = "icon";
