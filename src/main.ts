@@ -123,7 +123,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "London",
+  city: "Shishman",
   weatherData: [],
 };
 // create a function that will get the weather data from the API
@@ -157,7 +157,7 @@ function renderCurrentWeather(mainEl: Element) {
   let cityNameEl = document.createElement("h2");
   cityNameEl.className = "city-name";
   cityNameEl.textContent = state.city;
-  let temperatureEl = document.createElement("div");
+  // let temperatureEl = document.createElement("div");
   let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
 
