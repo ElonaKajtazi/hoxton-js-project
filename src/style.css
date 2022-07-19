@@ -89,3 +89,48 @@
 .more-details:hover {
   color: #2c3e50;
 }
+.details-page {
+  background-color: #2c3e5071;
+  padding: 1.5rem;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 0.5rem;
+}
+.details__city-name {
+  text-align: center;
+}
+.weather-info {
+
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.6rem;
+  
+ 
+}
+.icon-temp {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  gap: 0.3rem;  
+}
+.weather-description {
+  text-align: center;
+}
+.details__feels-like {
+  text-align: center;
+  font-weight: 600;
+}
+.temperatures {
+  text-align: center;
+  font-weight: 600;
+}
+.more-info {
+  /* text-align: center; */
+  font-weight: 600;
+  display: grid;
+  grid-auto-flow: row;
+  place-content: center;
+  gap: 0.3rem;
+
+}

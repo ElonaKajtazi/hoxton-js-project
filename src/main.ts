@@ -119,12 +119,14 @@ type State = {
   apiKey: string;
   city: string;
   weatherData: WeatherData | null;
+  show: "currentWeather" | "moreDetails";
 };
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Pristina",
+  city: "Peje",
   weatherData: null,
+  show: "currentWeather",
 };
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
@@ -137,6 +139,8 @@ function getWeatherDataFromServer() {
       render();
     });
 }
+
+
 // rendering everything on a big function
 function renderCurrentWeather(mainEl: Element) {
   let containerDiv = document.createElement("div");
@@ -217,7 +221,126 @@ function renderCurrentWeather(mainEl: Element) {
   );
   mainEl.append(containerDiv);
 }
+function renderDetaulsPage(mainEl: Element) {
+  //   <div class="details-page">
+  //   <h1 class="details__city-name">Gjakove</h1>
+  //   <div class="weather-info">
+  //   <div class="main-info">
 
+  //     <div class="icon-temp">
+
+  //         <img
+  //           class="details__icon"
+  //           src="http://cdn.weatherapi.com/weather/64x64/day/113.png"
+  //           alt="suny weather"
+  //         />
+
+  //       <h2 class="details__current-temperature">17 °C </h2>
+  //     </div>
+  //     <h3 class="weather-description">Sunny</h3>
+  //     <p class="details__feels-like">Feels like: 20 °C</p>
+  //     <div class="temperatures">
+  //       <span class="max-temp"> Max: 32 °C</span> /
+  //       <span class="min-temp">Min: 15 °C</span>
+  //     </div>
+  //   </div>
+
+  //   <div class="more-info">
+  //     <p class="details__percipitation">Percipitation: 0%</p>
+  //     <p class="details__wind-speed">Wind speed: 3.6 km/h</p>
+  //     <p class="details__humidity">Humidity: 27%</p>
+  //   </div>
+  // </div>
+  // </div>
+  let detailsPageDiv = document.createElement("div");
+  detailsPageDiv.className = "details-page";
+
+  let detailsCityNameH1 = document.createElement("h1");
+  detailsCityNameH1.className = "details__city-name";
+  detailsCityNameH1.textContent = state.city;
+
+  let detailsWeatherInfoDiv = document.createElement("div");
+  detailsWeatherInfoDiv.className = "weather-info";
+
+  let detailsMainInfoDiv = document.createElement("div");
+  detailsMainInfoDiv.className = "main-info";
+
+  let detailsIconTempDiv = document.createElement("div");
+  detailsIconTempDiv.className = "icon-temp";
+
+  let detailsIconImg = document.createElement("img");
+  detailsIconImg.className = "details__icon";
+  if (state.weatherData === null) return;
+  detailsIconImg.src = state.weatherData.current.condition.icon;
+  detailsIconImg.alt = "suny weather";
+
+  let detailsCurrentTemperatureH2 = document.createElement("h2");
+  detailsCurrentTemperatureH2.className = "details__current-temperature";
+  detailsCurrentTemperatureH2.textContent = `${state.weatherData.current.temp_c} °C`;
+
+  detailsIconTempDiv.append(detailsIconImg, detailsCurrentTemperatureH2);
+
+  let detailsWeatherDescriptionH3 = document.createElement("h3");
+  detailsWeatherDescriptionH3.className = "weather-description";
+  detailsWeatherDescriptionH3.textContent =
+    state.weatherData.current.condition.text;
+
+  let detailsFeelsLikeP = document.createElement("p");
+  detailsFeelsLikeP.className = "details__feels-like";
+  detailsFeelsLikeP.textContent = `Feels like: ${state.weatherData.current.feelslike_c}°C`;
+
+  let detailsTemperaturesDiv = document.createElement("div");
+  detailsTemperaturesDiv.className = "temperatures";
+
+  let detailsMaxTempSpan = document.createElement("span");
+  detailsMaxTempSpan.className = "max-temp";
+  detailsMaxTempSpan.textContent = `Max: 32 °C`;
+
+  let detailsMinTempSpan = document.createElement("span");
+  detailsMinTempSpan.className = "min-temp";
+  detailsMinTempSpan.textContent = `Min: 15 °C`;
+
+  detailsTemperaturesDiv.append(detailsMaxTempSpan, detailsMinTempSpan);
+  detailsMainInfoDiv.append(
+    detailsIconTempDiv,
+    detailsWeatherDescriptionH3,
+    detailsFeelsLikeP,
+    detailsTemperaturesDiv
+  );
+
+  //   <div class="more-info">
+  //     <p class="details__percipitation">Percipitation: 0%</p>
+  //     <p class="details__wind-speed">Wind speed: 3.6 km/h</p>
+  //     <p class="details__humidity">Humidity: 27%</p>
+  //   </div>
+  let detailsMoreInfoDiv = document.createElement("div");
+  detailsMoreInfoDiv.className = "more-info";
+
+  let detailsPercipitationP = document.createElement("p");
+  detailsPercipitationP.className = "details__percipitation";
+  detailsPercipitationP.textContent = `Percipitation: ${state.weatherData.current.precip_mm} mm`;
+
+  let detailsWindSpeedP = document.createElement("p");
+  detailsWindSpeedP.className = "details__wind-speed";
+  detailsWindSpeedP.textContent = `Wind speed: ${state.weatherData.current.wind_kph} km/h`;
+
+  let detailsHumidityP = document.createElement("p");
+  detailsHumidityP.className = "details__humidity";
+  detailsHumidityP.textContent = `Humidity: ${state.weatherData.current.humidity}%`;
+
+  detailsMoreInfoDiv.append(
+    detailsPercipitationP,
+    detailsWindSpeedP,
+    detailsHumidityP
+  );
+  detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
+  detailsPageDiv.append(detailsCityNameH1, detailsWeatherInfoDiv);
+  mainEl.append(detailsPageDiv);
+
+  detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
+  detailsPageDiv.append(detailsCityNameH1, detailsWeatherInfoDiv);
+  mainEl.append(detailsPageDiv);
+}
 function render() {
   let mainEl = document.querySelector("#app");
   if (mainEl === null) return;
