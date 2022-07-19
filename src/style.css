@@ -19,14 +19,14 @@
   background-color: #b9ddfe;
 }
 .container {
-  background-color:rgba(0, 0, 0, 0.498);
+  background-color: rgba(0, 0, 0, 0.498);
   padding: 1.5rem;
   display: grid;
   grid-auto-flow: row;
   border-radius: 10px;
   gap: 1rem;
   width: 250px;
-  justify-content: center;
+  text-align: start;
   color: white;
 }
 /* form {
@@ -34,7 +34,7 @@
   grid-auto-flow: column;
 } */
 .search {
-  background-color:rgba(0, 0, 0, 0.362);
+  background-color: rgba(0, 0, 0, 0.362);
   border: none;
   padding: 0.3rem;
   border-radius: 5px;
@@ -58,3 +58,8 @@
   width: 80px;
 }
 */
+.city {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+}
