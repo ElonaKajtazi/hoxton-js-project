@@ -7,8 +7,7 @@
   margin-top: 60px;
 } */
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@300&family=Nunito+Sans:wght@200;300&family=Work+Sans:wght@200;300&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -20,17 +19,22 @@
   width: 100vw;
   height: 100vh;
   background-color: #b9ddfe;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Work Sans", sans-serif;
 }
+
 .container {
-  background-color: rgba(0, 0, 0, 0.498);
+  /* background-color: rgba(0, 0, 0, 0.498); */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://media.istockphoto.com/photos/blue-sky-with-bright-sun-and-clouds-picture-id1007768414?b=1&k=20&m=1007768414&s=170667a&w=0&h=9ijRGKZYLQJz5GO0ZwisNhraxPRY3wUFWe2wjCfS-Uc=);
+  background-size: cover;
+
   padding: 1.5rem 2rem;
   display: grid;
   grid-auto-flow: row;
   border-radius: 10px;
   gap: 1rem;
   width: 250px;
-  text-align: start;
+  text-align: center;
   color: white;
   width: 250px;
 }
@@ -65,7 +69,13 @@
 
 .city {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 10px 130px;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  /* gap: 0.5rem; */
+}
+
+.text {
+  font-size: 0.9rem;
+  /* margin-left: 20px; */
 }
