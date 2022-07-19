@@ -123,7 +123,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Paris",
+  city: "London",
   weatherData: [],
 };
 // create a function that will get the weather data from the API
@@ -138,11 +138,7 @@ function getWeatherDataFromServer() {
     });
 }
 // rendering everything on a big function
-function render() {
-  let mainEl = document.querySelector("#app");
-  if (mainEl === null) return;
-  mainEl.textContent = "";
-
+function renderCurrentWeather(mainEl: Element) {
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
 
@@ -161,9 +157,13 @@ function render() {
   let cityNameEl = document.createElement("h2");
   cityNameEl.className = "city-name";
   cityNameEl.textContent = state.city;
-
+  let temperatureEl = document.createElement("div");
   let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
+
+  //   let feelsLikeEl = document.createElement("p");
+  // feelsLikeEl.className = "feels-like";
+  // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
 
   currentTemperatureEl.textContent = `${state.weatherData["current"].temp_c} °C`;
 
@@ -179,46 +179,50 @@ function render() {
   iconEl.src = state.weatherData["current"].condition.icon;
   iconEl.alt = "sun";
   // iconEl.width = "80";
-
-  let windspeedEl = document.createElement("div");
+  let windAndHumidityEl = document.createElement("div");
+  let windspeedEl = document.createElement("p");
   windspeedEl.className = "windspeed";
   windspeedEl.textContent = `Wind Speed: ${state.weatherData["current"].wind_kph} km/h`;
 
-  let humidityEl = document.createElement("div");
+  let humidityEl = document.createElement("p");
   humidityEl.className = "humidity";
   humidityEl.textContent = `Humidity: ${state.weatherData["current"].humidity}%`;
 
-  let feelsLikeEl = document.createElement("div");
-  feelsLikeEl.className = "feels-like";
-  feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
+  // let lastUpdatedEl = document.createElement("div");
+  // lastUpdatedEl.className = "last-updated";
 
-  let lastUpdatedEl = document.createElement("div");
-  lastUpdatedEl.className = "last-updated";
-
-  let timeEl = document.createElement("span");
-  timeEl.className = "time";
+  // let timeEl = document.createElement("span");
+  // timeEl.className = "time";
   // timeEl.textContent = state.weatherData["current"].last_updated;
+  let moreDetailsEl = document.createElement("p");
+  moreDetailsEl.className = "more-details";
+  moreDetailsEl.textContent = "More details";
+  
 
   formEl.appendChild(inputEl);
   descriptionEl.append(iconEl, textEl);
   cityDiv.append(pinDropEl, cityNameEl, currentTemperatureEl, descriptionEl);
-
+  windAndHumidityEl.append(windspeedEl, humidityEl);
   // lastUpdatedEl.append("Last updated: ", timeEl);
   containerDiv.append(
     formEl,
     cityDiv,
     descriptionEl,
     currentTemperatureEl,
-    feelsLikeEl,
 
-    windspeedEl,
-    humidityEl,
+    windAndHumidityEl,
+    moreDetailsEl
 
-    lastUpdatedEl
+    // lastUpdatedEl
   );
   mainEl.append(containerDiv);
 }
+function render() {
+  let mainEl = document.querySelector("#app");
+  if (mainEl === null) return;
+  mainEl.textContent = "";
+
+  renderCurrentWeather(mainEl);
+}
 getWeatherDataFromServer();
 render();
-
-

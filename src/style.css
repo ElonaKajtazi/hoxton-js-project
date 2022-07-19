@@ -36,7 +36,7 @@
   width: 250px;
   text-align: center;
   color: white;
-  width: 250px;
+  width: 260px;
 }
 /* form {
   display: grid;
@@ -69,7 +69,7 @@
 
 .city {
   display: grid;
-  grid-template-columns: 10px 130px;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
   /* gap: 0.5rem; */
@@ -78,4 +78,9 @@
 .text {
   font-size: 0.9rem;
   /* margin-left: 20px; */
+}
+.more-details {
+  font-size: 0.9rem;
+  /* color: #2c3e50;
+  font-weight: 100; */
 }
