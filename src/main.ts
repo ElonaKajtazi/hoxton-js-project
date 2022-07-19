@@ -118,7 +118,7 @@ type WeatherData = {
 type State = {
   apiKey: string;
   city: string;
-  weatherData: WeatherData| null
+  weatherData: WeatherData | null;
 };
 // Kindof created stata, will update it later
 let state: State = {
@@ -164,8 +164,8 @@ function renderCurrentWeather(mainEl: Element) {
   //   let feelsLikeEl = document.createElement("p");
   // feelsLikeEl.className = "feels-like";
   // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
-if(state.weatherData===null) return
-  
+  if (state.weatherData === null) return;
+
   currentTemperatureEl.textContent = `${state.weatherData.current.temp_c} °C`;
 
   let descriptionEl = document.createElement("div");
@@ -177,17 +177,17 @@ if(state.weatherData===null) return
 
   let iconEl = document.createElement("img");
   iconEl.className = "icon";
-  iconEl.src = state.weatherData["current"].condition.icon;
+  iconEl.src = state.weatherData.current.condition.icon;
   iconEl.alt = "sun";
   // iconEl.width = "80";
   let windAndHumidityEl = document.createElement("div");
   let windspeedEl = document.createElement("p");
   windspeedEl.className = "windspeed";
-  windspeedEl.textContent = `Wind Speed: ${state.weatherData["current"].wind_kph} km/h`;
+  windspeedEl.textContent = `Wind Speed: ${state.weatherData.current.wind_kph} km/h`;
 
   let humidityEl = document.createElement("p");
   humidityEl.className = "humidity";
-  humidityEl.textContent = `Humidity: ${state.weatherData["current"].humidity}%`;
+  humidityEl.textContent = `Humidity: ${state.weatherData.current.humidity}%`;
 
   // let lastUpdatedEl = document.createElement("div");
   // lastUpdatedEl.className = "last-updated";
@@ -198,7 +198,6 @@ if(state.weatherData===null) return
   let moreDetailsEl = document.createElement("p");
   moreDetailsEl.className = "more-details";
   moreDetailsEl.textContent = "More details";
-  
 
   formEl.appendChild(inputEl);
   descriptionEl.append(iconEl, textEl);
@@ -225,7 +224,6 @@ function render() {
   mainEl.textContent = "";
 
   renderCurrentWeather(mainEl);
-  
 }
 getWeatherDataFromServer();
 render();
