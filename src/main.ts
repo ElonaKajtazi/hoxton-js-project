@@ -170,6 +170,7 @@ function render() {
   iconEl.className = "icon";
   iconEl.src = state.weatherData["current"].condition.icon;
   iconEl.alt = "sun";
+  iconEl.width = '80'
 
   let windspeedEl = document.createElement("div");
   windspeedEl.className = "windspeed";
