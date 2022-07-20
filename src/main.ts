@@ -124,7 +124,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Paris",
+  city: " Pristina",
   weatherData: null,
   show: "null",
 };
@@ -178,7 +178,9 @@ function renderCurrentWeather(mainEl: Element) {
   // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
   if (state.weatherData === null) return;
 
-  currentTemperatureEl.textContent = `${state.weatherData.current.temp_c} °C`;
+  currentTemperatureEl.textContent = `${Math.floor(
+    state.weatherData.current.temp_c
+  )} °C`;
 
   let descriptionEl = document.createElement("div");
   descriptionEl.className = "description";
@@ -286,18 +288,24 @@ function renderDetailsPage(mainEl: Element) {
 
   let detailsFeelsLikeP = document.createElement("p");
   detailsFeelsLikeP.className = "details__feels-like";
-  detailsFeelsLikeP.textContent = `Feels like: ${state.weatherData.current.feelslike_c}°C`;
+  detailsFeelsLikeP.textContent = `Feels like: ${Math.floor(
+    state.weatherData.current.feelslike_c
+  )}°C`;
 
   let detailsTemperaturesDiv = document.createElement("div");
   detailsTemperaturesDiv.className = "temperatures";
 
   let detailsMaxTempSpan = document.createElement("span");
   detailsMaxTempSpan.className = "max-temp";
-  detailsMaxTempSpan.textContent = `Max: ${state.weatherData.forecast.forecastday[0].day.maxtemp_c} °C`;
+  detailsMaxTempSpan.textContent = `Max: ${Math.floor(
+    state.weatherData.forecast.forecastday[0].day.maxtemp_c
+  )} °C`;
 
   let detailsMinTempSpan = document.createElement("span");
   detailsMinTempSpan.className = "min-temp";
-  detailsMinTempSpan.textContent = `Min: ${state.weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
+  detailsMinTempSpan.textContent = `Min: ${Math.floor(
+    state.weatherData.forecast.forecastday[0].day.mintemp_c
+  )} °C`;
 
   detailsTemperaturesDiv.append(detailsMaxTempSpan, " / ", detailsMinTempSpan);
   detailsMainInfoDiv.append(
@@ -316,7 +324,7 @@ function renderDetailsPage(mainEl: Element) {
 
   let detailsWindSpeedP = document.createElement("p");
   detailsWindSpeedP.className = "details__wind-speed";
-  detailsWindSpeedP.textContent = `Wind speed: ${state.weatherData.current.wind_kph} km/h`;
+  detailsWindSpeedP.textContent = `Wind: ${state.weatherData.current.wind_kph} km/h`;
 
   let detailsHumidityP = document.createElement("p");
   detailsHumidityP.className = "details__humidity";
@@ -353,8 +361,14 @@ function renderWeatherForecast(detailsPageDiv: Element) {
 
     let dayP = document.createElement("p");
     dayP.className = "day";
-    dayP.textContent = "Tomorrow";
 
+    if (day.date === "2022-07-20") {
+      dayP.textContent = "Wednesday";
+    } else if (day.date === "2022-07-21") {
+      dayP.textContent = "Thursday";
+    } else if (day.date === "2022-07-22") {
+      dayP.textContent = "Friday";
+    }
     let forecastIconImg = document.createElement("img");
     forecastIconImg.className = "forecast-icon";
     forecastIconImg.src = day.day.condition.icon;
@@ -364,10 +378,10 @@ function renderWeatherForecast(detailsPageDiv: Element) {
     forecastTemperaturesDiv.className = "fprecast__temperatures";
     let forecastMaxTempSpan = document.createElement("span");
     forecastMaxTempSpan.className = "forecast__max-temp";
-    forecastMaxTempSpan.textContent = day.day.maxtemp_c;
+    forecastMaxTempSpan.textContent = `${Math.floor(day.day.maxtemp_c)}`;
     let forecastMinTempSpan = document.createElement("span");
     forecastMinTempSpan.className = "forecast__min-temp";
-    forecastMinTempSpan.textContent = day.day.mintemp_c;
+    forecastMinTempSpan.textContent = `${Math.floor(day.day.mintemp_c)}`;
 
     forecastTemperaturesDiv.append(
       forecastMinTempSpan,

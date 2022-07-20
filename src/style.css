@@ -104,6 +104,9 @@
 .details__pin-drop {
   font-size: 1.6rem;
 }
+.details__icon {
+  width: 90px;
+}
 .weather-info {
   display: grid;
   grid-auto-flow: column;
@@ -154,4 +157,7 @@
   /* border: 1px solid black; */
   padding: 0.5rem;
   font-weight: 600;
+}
+.weather-description {
+  padding-bottom: 0.5rem;
 }
