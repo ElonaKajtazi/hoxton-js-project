@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 #app {
   display: grid;
   place-content: center;
@@ -132,7 +133,7 @@
 .weather-info {
   display: grid;
   grid-auto-flow: column;
-  gap: 2.5rem;
+  gap: 3rem;
   padding: 1rem;
   border-bottom: 1px solid #2c3e502f;
 }
@@ -193,4 +194,16 @@
 }
 .icon-temp {
   place-content: center;
+}
+.go-back {
+  font-weight: 600;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.go-back:hover {
+  color: #2c3e50;
+}
+.sun-rise {
+  font-weight: 600;
+
 }
