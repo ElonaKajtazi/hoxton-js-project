@@ -124,7 +124,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: " Pristina",
+  city: "Stockholm",
   weatherData: null,
   show: "null",
 };
@@ -151,8 +151,20 @@ function getCurrentWeatherPage() {
 }
 // This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
+  if (state.weatherData === null) return;
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
+
+  if (state.weatherData.current.condition.text === "Sunny")
+    containerDiv.classList.add("container-sunny");
+  if (state.weatherData.current.condition.text === "Cloudy")
+    containerDiv.classList.add("container-cloudy");
+  if (state.weatherData.current.condition.text === "Partly cloudy")
+    containerDiv.classList.add("container-partly-cloudy");
+  if (state.weatherData.current.condition.text === "Rain" || state.weatherData.current.condition.text === "Light rain" || state.weatherData.current.condition.text === "Heavy rain")
+    containerDiv.classList.add("container-rain");
+  if (state.weatherData.current.condition.text === "Clear")
+    containerDiv.classList.add("container-clear");
 
   let formEl = document.createElement("form");
 
@@ -176,7 +188,6 @@ function renderCurrentWeather(mainEl: Element) {
   //   let feelsLikeEl = document.createElement("p");
   // feelsLikeEl.className = "feels-like";
   // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
-  if (state.weatherData === null) return;
 
   currentTemperatureEl.textContent = `${Math.floor(
     state.weatherData.current.temp_c

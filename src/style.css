@@ -14,10 +14,6 @@
 }
 
 .container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(https://media.istockphoto.com/photos/blue-sky-with-bright-sun-and-clouds-picture-id1007768414?b=1&k=20&m=1007768414&s=170667a&w=0&h=9ijRGKZYLQJz5GO0ZwisNhraxPRY3wUFWe2wjCfS-Uc=);
-  background-size: cover;
-
   padding: 1.5rem 2rem;
   display: grid;
   grid-auto-flow: row;
@@ -27,6 +23,30 @@
   text-align: center;
   color: white;
   width: 260px;
+}
+.container-sunny {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://media.istockphoto.com/photos/blue-sky-with-bright-sun-and-clouds-picture-id1007768414?b=1&k=20&m=1007768414&s=170667a&w=0&h=9ijRGKZYLQJz5GO0ZwisNhraxPRY3wUFWe2wjCfS-Uc=);
+  background-size: cover;
+}
+.container-cloudy {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://static.vecteezy.com/system/resources/previews/005/224/663/non_2x/stratus-clouds-rainy-clouds-abstract-season-weather-background-free-photo.jpg);
+  background-size: cover;
+}
+.container-partly-cloudy {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://c1.wallpaperflare.com/preview/58/324/2/sky-blue-cloud-cloudy.jpg);
+  background-size: cover;
+}
+.container-clear {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUvxSKttmMRk9yH4gcyKYbZG2nYdGjX53_bw&usqp=CAU-clear);
+  background-size: cover;
+}
+.container-rainy {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://thumbs.dreamstime.com/b/cloudy-rainy-weather-background-sea-52541681.jpg);
+  background-size: cover;
 }
 /* form {
   display: grid;
