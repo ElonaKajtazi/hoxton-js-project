@@ -23,6 +23,7 @@
   text-align: center;
   color: white;
   width: 260px;
+  background-color: #0000002e;
 }
 .container-sunny {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
@@ -152,6 +153,8 @@
 .temperatures {
   /* text-align: center; */
   font-weight: 600;
+  display: grid;
+  gap: 0.3rem;
 }
 .more-info {
   /* text-align: center; */
@@ -159,6 +162,11 @@
   display: grid;
   grid-auto-flow: row;
   place-content: center;
+  gap: 0.3rem;
+}
+.main-info {
+  display: grid;
+
   gap: 0.3rem;
 }
 .daily-forecast {

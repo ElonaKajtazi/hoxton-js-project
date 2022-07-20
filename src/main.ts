@@ -124,7 +124,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Texas",
+  city: "Tirana",
   weatherData: null,
   show: "null",
 };
@@ -169,13 +169,22 @@ function renderCurrentWeather(mainEl: Element) {
     state.weatherData.current.condition.text === "Moderate rain" ||
     state.weatherData.current.condition.text === "Heavy rain" ||
     state.weatherData.current.condition.text ===
-      "Moderate or heavy rain with thunder"
+      "Moderate or heavy rain with thunder" ||
+    state.weatherData.current.condition.text ===
+      "Patchy light rain with thunder" ||
+    state.weatherData.current.condition.text === "Moderate or heavy rain shower"
   )
     containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
     containerDiv.classList.add("container-clear");
 
   let formEl = document.createElement("form");
+  formEl.className = "form";
+  formEl.addEventListener("submit", (event) => {
+    event.preventDefault();
+    state.city = inputEl.value;
+    getWeatherDataFromServer();
+  });
 
   let inputEl = document.createElement("input");
   inputEl.className = "search";
