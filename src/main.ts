@@ -337,6 +337,53 @@ function renderDetailsPage(mainEl: Element) {
   detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
 
   mainEl.append(detailsPageDiv);
+  renderWeatherForecast(detailsPageDiv);
+}
+
+function renderWeatherForecast (detailsPageDiv: Element) {
+//   <div class="daily-forecast">
+//   <div class="days">
+//     <div class="tomorrow">
+//       <p class="day">Tomorrow</p>
+//       <img
+//         class="forecast-icon"
+//         src="http://cdn.weatherapi.com/weather/64x64/day/113.png"
+//         alt="suny weather"
+//       />
+//       <div class="fprecast__temperatures">
+//         <span class="forecast__max-temp">32</span> |
+//         <span class="forecast__min-temp">15 </span>
+//       </div>
+//     </div>     
+//   </div>
+// </div>
+  let dailyForecastDiv = document.createElement("div");
+  dailyForecastDiv.className = "daily-forecast";
+  let daysDiv = document.createElement("div");
+  daysDiv.className = "days";
+  let tomorrowDiv = document.createElement("div");
+  tomorrowDiv.className = "tomorrow";
+  let dayP = document.createElement("p");
+  dayP.className = "day";
+  dayP.textContent = "Tomorrow";
+  let forecastIconImg = document.createElement("img");
+  forecastIconImg.className = "forecast-icon";
+  forecastIconImg.src = "http://cdn.weatherapi.com/weather/64x64/day/113.png";
+  forecastIconImg.alt = "suny weather";
+  let forecastTemperaturesDiv = document.createElement("div");
+  forecastTemperaturesDiv.className = "fprecast__temperatures";
+  let forecastMaxTempSpan = document.createElement("span");
+  forecastMaxTempSpan.className = "forecast__max-temp";
+  forecastMaxTempSpan.textContent = "32";
+  let forecastMinTempSpan = document.createElement("span");
+  forecastMinTempSpan.className = "forecast__min-temp";
+  forecastMinTempSpan.textContent = "15";
+  forecastTemperaturesDiv.append(forecastMaxTempSpan, " | ", forecastMinTempSpan);
+  tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
+  daysDiv.append(tomorrowDiv);
+  dailyForecastDiv.append(daysDiv);
+  detailsPageDiv.append(dailyForecastDiv);
+
 }
 // Rendering everything
 function render() {

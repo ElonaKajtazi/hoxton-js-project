@@ -103,8 +103,6 @@
 .details__country-name {
   text-align: center;
   font-weight: 600;
-
-
 }
 .location {
   display: grid;
@@ -113,24 +111,20 @@
   justify-content: center;
   gap: 0.5rem;
 }
-.details__pin-drop{
+.details__pin-drop {
   font-size: 1.6rem;
- 
 }
 .weather-info {
-
   display: grid;
   grid-auto-flow: column;
   gap: 2.5rem;
-  
- 
 }
 .icon-temp {
   display: grid;
   grid-auto-flow: column;
   justify-content: start;
   align-items: center;
-  gap: 0.3rem;  
+  gap: 0.3rem;
 }
 .weather-description {
   text-align: center;
@@ -150,5 +144,22 @@
   grid-auto-flow: row;
   place-content: center;
   gap: 0.3rem;
-
+}
+.daily-forecast {
+  /* border: 1px solid black; */
+  padding: 0.5rem;
+}
+.days {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+.tomorrow {
+  display: grid;
+  text-align: center;
+  /* border: 1px solid black; */
+  padding: 0.5rem;
+  font-weight: 600;
 }
