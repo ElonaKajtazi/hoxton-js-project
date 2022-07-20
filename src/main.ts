@@ -124,7 +124,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Paris",
+  city: "Tel Aviv",
   weatherData: null,
   show: "null",
 };
@@ -234,21 +234,29 @@ function renderCurrentWeather(mainEl: Element) {
 }
 // This function will render the details weather page
 function renderDetailsPage(mainEl: Element) {
-
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
 
   let cityCountryEl = document.createElement("div");
   cityCountryEl.className = "city-country";
+  let locationDiv = document.createElement("div");
+  locationDiv.className = "location";
+
+  let pinDropEl = document.createElement("span");
+  pinDropEl.className = "material-symbols-outlined";
+  pinDropEl.textContent = "pin_drop";
+  pinDropEl.classList.add("details__pin-drop");
   let detailsCityNameH1 = document.createElement("h1");
   detailsCityNameH1.className = "details__city-name";
   detailsCityNameH1.textContent = state.city;
+  locationDiv.append(pinDropEl, detailsCityNameH1);
+
   let countryNameP = document.createElement("p");
   countryNameP.className = "details__country-name";
   if (state.weatherData === null) return;
   countryNameP.textContent = state.weatherData.location.country;
 
-  cityCountryEl.append(detailsCityNameH1, countryNameP);
+  cityCountryEl.append(locationDiv, countryNameP);
 
   let detailsWeatherInfoDiv = document.createElement("div");
   detailsWeatherInfoDiv.className = "weather-info";
@@ -291,7 +299,7 @@ function renderDetailsPage(mainEl: Element) {
   detailsMinTempSpan.className = "min-temp";
   detailsMinTempSpan.textContent = `Min: ${state.weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
 
-  detailsTemperaturesDiv.append(detailsMaxTempSpan, detailsMinTempSpan);
+  detailsTemperaturesDiv.append(detailsMaxTempSpan, " / ", detailsMinTempSpan);
   detailsMainInfoDiv.append(
     detailsIconTempDiv,
     detailsWeatherDescriptionH3,
@@ -343,3 +351,4 @@ function render() {
 }
 
 getWeatherDataFromServer();
+render();

@@ -106,6 +106,17 @@
 
 
 }
+.location {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.details__pin-drop{
+  font-size: 1.6rem;
+ 
+}
 .weather-info {
 
   display: grid;
