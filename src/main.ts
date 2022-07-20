@@ -340,42 +340,45 @@ function renderDetailsPage(mainEl: Element) {
   renderWeatherForecast(detailsPageDiv);
 }
 
-function renderWeatherForecast (detailsPageDiv: Element) {
-
+function renderWeatherForecast(detailsPageDiv: Element) {
   let dailyForecastDiv = document.createElement("div");
   dailyForecastDiv.className = "daily-forecast";
   let daysDiv = document.createElement("div");
   daysDiv.className = "days";
 
   if (state.weatherData === null) return;
-for(let day of state.weatherData.forecast.forecastday) {
-  let tomorrowDiv = document.createElement("div");
-  tomorrowDiv.className = "tomorrow";
+  for (let day of state.weatherData.forecast.forecastday) {
+    let tomorrowDiv = document.createElement("div");
+    tomorrowDiv.className = "tomorrow";
 
-  let dayP = document.createElement("p");
-  dayP.className = "day";
-  dayP.textContent = "Tomorrow";
+    let dayP = document.createElement("p");
+    dayP.className = "day";
+    dayP.textContent = "Tomorrow";
 
-  let forecastIconImg = document.createElement("img");
-  forecastIconImg.className = "forecast-icon";
-  forecastIconImg.src = day.day.condition.icon;
-  forecastIconImg.alt = "suny weather";
+    let forecastIconImg = document.createElement("img");
+    forecastIconImg.className = "forecast-icon";
+    forecastIconImg.src = day.day.condition.icon;
+    forecastIconImg.alt = "suny weather";
 
-  let forecastTemperaturesDiv = document.createElement("div");
-  forecastTemperaturesDiv.className = "fprecast__temperatures";
-  let forecastMaxTempSpan = document.createElement("span");
-  forecastMaxTempSpan.className = "forecast__max-temp";
-  forecastMaxTempSpan.textContent = day.day.maxtemp_c;
-  let forecastMinTempSpan = document.createElement("span");
-  forecastMinTempSpan.className = "forecast__min-temp";
-  forecastMinTempSpan.textContent = day.day.mintemp_c;
-  forecastTemperaturesDiv.append(forecastMaxTempSpan, " | ", forecastMinTempSpan);
-  tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
-  daysDiv.append(tomorrowDiv);
-  dailyForecastDiv.append(daysDiv);
-  detailsPageDiv.append(dailyForecastDiv);
-}
+    let forecastTemperaturesDiv = document.createElement("div");
+    forecastTemperaturesDiv.className = "fprecast__temperatures";
+    let forecastMaxTempSpan = document.createElement("span");
+    forecastMaxTempSpan.className = "forecast__max-temp";
+    forecastMaxTempSpan.textContent = day.day.maxtemp_c;
+    let forecastMinTempSpan = document.createElement("span");
+    forecastMinTempSpan.className = "forecast__min-temp";
+    forecastMinTempSpan.textContent = day.day.mintemp_c;
 
+    forecastTemperaturesDiv.append(
+      forecastMinTempSpan,
+      " | ",
+      forecastMaxTempSpan
+    );
+    tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
+    daysDiv.append(tomorrowDiv);
+    dailyForecastDiv.append(daysDiv);
+    detailsPageDiv.append(dailyForecastDiv);
+  }
 }
 // Rendering everything
 function render() {

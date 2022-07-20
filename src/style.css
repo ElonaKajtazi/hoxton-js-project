@@ -1,12 +1,3 @@
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@300&family=Nunito+Sans:wght@200;300&family=Work+Sans:wght@200;300&display=swap");
 * {
   margin: 0;
@@ -23,7 +14,6 @@
 }
 
 .container {
-  /* background-color: rgba(0, 0, 0, 0.498); */
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url(https://media.istockphoto.com/photos/blue-sky-with-bright-sun-and-clouds-picture-id1007768414?b=1&k=20&m=1007768414&s=170667a&w=0&h=9ijRGKZYLQJz5GO0ZwisNhraxPRY3wUFWe2wjCfS-Uc=);
   background-size: cover;
@@ -118,6 +108,8 @@
   display: grid;
   grid-auto-flow: column;
   gap: 2.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid #2c3e502f;
 }
 .icon-temp {
   display: grid;
