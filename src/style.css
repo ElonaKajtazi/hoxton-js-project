@@ -101,11 +101,12 @@
 }
 .details-page {
   background-color: #2c3e5071;
-  padding: 1.5rem;
+  padding: 2rem 3rem;
   display: grid;
   grid-auto-flow: row;
   gap: 0.5rem;
   border-radius: 10px;
+
 }
 .details__city-name {
   text-align: center;
@@ -145,11 +146,11 @@
   text-align: center;
 }
 .details__feels-like {
-  text-align: center;
+  /* text-align: center; */
   font-weight: 600;
 }
 .temperatures {
-  text-align: center;
+  /* text-align: center; */
   font-weight: 600;
 }
 .more-info {
@@ -169,7 +170,7 @@
   grid-auto-flow: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap:2rem;
 }
 .tomorrow {
   display: grid;
@@ -177,7 +178,11 @@
   /* border: 1px solid black; */
   padding: 0.5rem;
   font-weight: 600;
+
 }
 .weather-description {
   padding-bottom: 0.5rem;
+}
+.icon-temp {
+  place-content: center;
 }
