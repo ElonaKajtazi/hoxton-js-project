@@ -124,7 +124,7 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Stockholm",
+  city: "Texas",
   weatherData: null,
   show: "null",
 };
@@ -157,12 +157,21 @@ function renderCurrentWeather(mainEl: Element) {
 
   if (state.weatherData.current.condition.text === "Sunny")
     containerDiv.classList.add("container-sunny");
-  if (state.weatherData.current.condition.text === "Cloudy")
+  if (
+    state.weatherData.current.condition.text === "Cloudy" ||
+    state.weatherData.current.condition.text === "Overcast"
+  )
     containerDiv.classList.add("container-cloudy");
   if (state.weatherData.current.condition.text === "Partly cloudy")
     containerDiv.classList.add("container-partly-cloudy");
-  if (state.weatherData.current.condition.text === "Rain" || state.weatherData.current.condition.text === "Light rain" || state.weatherData.current.condition.text === "Heavy rain")
-    containerDiv.classList.add("container-rain");
+  if (
+    state.weatherData.current.condition.text === "Rain" ||
+    state.weatherData.current.condition.text === "Moderate rain" ||
+    state.weatherData.current.condition.text === "Heavy rain" ||
+    state.weatherData.current.condition.text ===
+      "Moderate or heavy rain with thunder"
+  )
+    containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
     containerDiv.classList.add("container-clear");
 
@@ -288,7 +297,9 @@ function renderDetailsPage(mainEl: Element) {
 
   let detailsCurrentTemperatureH2 = document.createElement("h2");
   detailsCurrentTemperatureH2.className = "details__current-temperature";
-  detailsCurrentTemperatureH2.textContent = `${state.weatherData.current.temp_c} °C`;
+  detailsCurrentTemperatureH2.textContent = `${Math.floor(
+    state.weatherData.current.temp_c
+  )} °C`;
 
   detailsIconTempDiv.append(detailsIconImg, detailsCurrentTemperatureH2);
 
