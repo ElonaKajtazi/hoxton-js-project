@@ -39,80 +39,80 @@ type WeatherData = {
     gust_mph: number;
     gust_kph: number;
   };
-  // forecast: {
-  //   forecastday: [
-  //     {
-  //       date: string;
-  //       date_epoch: number;
-  //       day: {
-  //         maxtemp_c: number;
-  //         maxtemp_f: number;
-  //         mintemp_c: number;
-  //         mintemp_f: number;
-  //         avgtemp_c: number;
-  //         avgtemp_f: number;
-  //         maxwind_mph: number;
-  //         maxwind_kph: number;
-  //         totalprecip_mm: number;
-  //         totalprecip_in: number;
-  //         avgvis_km: number;
-  //         avgvis_miles: number;
-  //         avghumidity: number;
-  //         condition: {
-  //           text: string;
-  //           icon: string;
-  //           code: number;
-  //         };
-  //         uv: number;
-  //       };
-  //       astro: {
-  //         sunrise: string;
-  //         sunset: string;
-  //         moonrise: string;
-  //         moonset: string;
-  //         moon_phase: string;
-  //         moon_illumination: number;
-  //       };
-  //       hour: {
-  //         time_epoch: number;
-  //         time: string;
-  //         temp_c: number;
-  //         temp_f: number;
-  //         is_day: number;
-  //         condition: {
-  //           text: string;
-  //           icon: string;
-  //           code: number;
-  //         };
-  //         wind_mph: number;
-  //         wind_kph: number;
-  //         wind_degree: number;
-  //         wind_dir: string;
-  //         pressure_mb: number;
-  //         pressure_in: number;
-  //         precip_mm: number;
-  //         precip_in: number;
-  //         humidity: number;
-  //         cloud: number;
-  //         feelslike_c: number;
-  //         feelslike_f: number;
-  //         windchill_c: number;
-  //         windchill_f: number;
-  //         heatindex_c: number;
-  //         heatindex_f: number;
-  //         dewpoint_c: number;
-  //         dewpoint_f: number;
-  //         will_it_rain: number;
-  //         will_it_snow: number;
-  //         vis_km: number;
-  //         vis_miles: number;
-  //         uv: number;
-  //         gust_mph: number;
-  //         gust_kph: number;
-  //       };
-  //     }
-  //   ];
-  // }
+  forecast: {
+    forecastday: [
+      {
+        date: string;
+        date_epoch: number;
+        day: {
+          maxtemp_c: number;
+          maxtemp_f: number;
+          mintemp_c: number;
+          mintemp_f: number;
+          avgtemp_c: number;
+          avgtemp_f: number;
+          maxwind_mph: number;
+          maxwind_kph: number;
+          totalprecip_mm: number;
+          totalprecip_in: number;
+          avgvis_km: number;
+          avgvis_miles: number;
+          avghumidity: number;
+          condition: {
+            text: string;
+            icon: string;
+            code: number;
+          };
+          uv: number;
+        };
+        astro: {
+          sunrise: string;
+          sunset: string;
+          moonrise: string;
+          moonset: string;
+          moon_phase: string;
+          moon_illumination: number;
+        };
+        hour: {
+          time_epoch: number;
+          time: string;
+          temp_c: number;
+          temp_f: number;
+          is_day: number;
+          condition: {
+            text: string;
+            icon: string;
+            code: number;
+          };
+          wind_mph: number;
+          wind_kph: number;
+          wind_degree: number;
+          wind_dir: string;
+          pressure_mb: number;
+          pressure_in: number;
+          precip_mm: number;
+          precip_in: number;
+          humidity: number;
+          cloud: number;
+          feelslike_c: number;
+          feelslike_f: number;
+          windchill_c: number;
+          windchill_f: number;
+          heatindex_c: number;
+          heatindex_f: number;
+          dewpoint_c: number;
+          dewpoint_f: number;
+          will_it_rain: number;
+          will_it_snow: number;
+          vis_km: number;
+          vis_miles: number;
+          uv: number;
+          gust_mph: number;
+          gust_kph: number;
+        };
+      }
+    ];
+  };
 };
 
 type State = {
@@ -124,16 +124,16 @@ type State = {
 // Kindof created stata, will update it later
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Peje",
+  city: "Paris",
   weatherData: null,
   show: "null",
 };
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
   fetch(
-    `http://api.weatherapi.com/v1/current.json?key=${state.apiKey}&q=${state.city}&aqi=no`
+    `http://api.weatherapi.com/v1/forecast.json?key=${state.apiKey}&q=${state.city}&days=10&aqi=yes&alerts=no`
   )
-    .then((response) => response.json())
+    .then((rsp) => rsp.json())
     .then((data) => {
       state.weatherData = data;
       render();
@@ -233,13 +233,22 @@ function renderCurrentWeather(mainEl: Element) {
   mainEl.append(containerDiv);
 }
 // This function will render the details weather page
-function renderDetaulsPage(mainEl: Element) {
+function renderDetailsPage(mainEl: Element) {
+
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
 
+  let cityCountryEl = document.createElement("div");
+  cityCountryEl.className = "city-country";
   let detailsCityNameH1 = document.createElement("h1");
   detailsCityNameH1.className = "details__city-name";
   detailsCityNameH1.textContent = state.city;
+  let countryNameP = document.createElement("p");
+  countryNameP.className = "details__country-name";
+  if (state.weatherData === null) return;
+  countryNameP.textContent = state.weatherData.location.country;
+
+  cityCountryEl.append(detailsCityNameH1, countryNameP);
 
   let detailsWeatherInfoDiv = document.createElement("div");
   detailsWeatherInfoDiv.className = "weather-info";
@@ -252,7 +261,7 @@ function renderDetaulsPage(mainEl: Element) {
 
   let detailsIconImg = document.createElement("img");
   detailsIconImg.className = "details__icon";
-  if (state.weatherData === null) return;
+
   detailsIconImg.src = state.weatherData.current.condition.icon;
   detailsIconImg.alt = "suny weather";
 
@@ -276,11 +285,11 @@ function renderDetaulsPage(mainEl: Element) {
 
   let detailsMaxTempSpan = document.createElement("span");
   detailsMaxTempSpan.className = "max-temp";
-  detailsMaxTempSpan.textContent = `Max: 32 °C`;
+  detailsMaxTempSpan.textContent = `Max: ${state.weatherData.forecast.forecastday[0].day.maxtemp_c} °C`;
 
   let detailsMinTempSpan = document.createElement("span");
   detailsMinTempSpan.className = "min-temp";
-  detailsMinTempSpan.textContent = `Min: 15 °C`;
+  detailsMinTempSpan.textContent = `Min: ${state.weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
 
   detailsTemperaturesDiv.append(detailsMaxTempSpan, detailsMinTempSpan);
   detailsMainInfoDiv.append(
@@ -310,12 +319,15 @@ function renderDetaulsPage(mainEl: Element) {
     detailsWindSpeedP,
     detailsHumidityP
   );
-  detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
-  detailsPageDiv.append(detailsCityNameH1, detailsWeatherInfoDiv);
-  mainEl.append(detailsPageDiv);
+  detailsWeatherInfoDiv.append(
+    detailsMainInfoDiv,
+
+    detailsMoreInfoDiv
+  );
+  detailsPageDiv.append(cityCountryEl, detailsWeatherInfoDiv);
 
   detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
-  detailsPageDiv.append(detailsCityNameH1, detailsWeatherInfoDiv);
+
   mainEl.append(detailsPageDiv);
 }
 // Rendering everything
@@ -325,9 +337,9 @@ function render() {
   if (mainEl === null) return;
   // Clearing the main element
   mainEl.textContent = "";
-// If the state is null, render the current weather page otherwise render the details weather page
+  // If the state is null, render the current weather page otherwise render the details weather page
   if (state.show === "null") renderCurrentWeather(mainEl);
-  if (state.show === "moreDetails") renderDetaulsPage(mainEl);
+  if (state.show === "moreDetails") renderDetailsPage(mainEl);
 }
 
 getWeatherDataFromServer();

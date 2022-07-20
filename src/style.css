@@ -95,15 +95,22 @@
   display: grid;
   grid-auto-flow: row;
   gap: 0.5rem;
+  border-radius: 10px;
 }
 .details__city-name {
   text-align: center;
+}
+.details__country-name {
+  text-align: center;
+  font-weight: 600;
+
+
 }
 .weather-info {
 
   display: grid;
   grid-auto-flow: column;
-  gap: 0.6rem;
+  gap: 2.5rem;
   
  
 }
