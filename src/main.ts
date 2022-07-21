@@ -123,6 +123,7 @@ type State = {
   weatherData: WeatherData | null;
   show: "null" | "moreDetails";
   message: string;
+  showForecast: "Daily" | "Hourly";
 };
 // State
 let state: State = {
@@ -131,6 +132,7 @@ let state: State = {
   weatherData: null,
   show: "null",
   message: "",
+  showForecast: "Daily",
 };
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
@@ -427,16 +429,49 @@ function renderDetailsPage(mainEl: Element) {
 
   detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
 
+  let dailyForecast = renderWeatherDailyForecast();
+  let hourlyForecast = renderWeatherHourlyForecast();
+  if (state.showForecast === "Daily") {
+    detailsPageDiv.append(dailyForecast);
+  } else {
+    detailsPageDiv.append(hourlyForecast);
+  }
   mainEl.append(detailsPageDiv);
-  renderWeatherForecast(detailsPageDiv);
+
+  // renderWeatherDailyForecast(detailsPageDiv);
+  // if ((state.showForecast = "Hourly")) {
+  //   renderWeatherHourlyForecast(detailsPageDiv);
+  // } else {
+  //   renderWeatherDailyForecast();
+  // }
+  // renderWeatherDailyForecast(detailsPageDiv);
   detailsPageDiv.append(lastUpdated);
 }
 
-function renderWeatherForecast(detailsPageDiv: Element) {
+function renderWeatherDailyForecast() {
   let dailyForecastDiv = document.createElement("div");
   dailyForecastDiv.className = "daily-forecast";
   let daysDiv = document.createElement("div");
   daysDiv.className = "days";
+  // let buttonsDiv = document.createElement("div");
+  // buttonsDiv.className = "buttons";
+  // let dailyButton = document.createElement("button");
+  // dailyButton.className = "daily-button";
+  // dailyButton.textContent = "Daily";
+  // dailyButton.addEventListener("click", () => {
+  //   state.showForecast = "Daily";
+  //   render();
+  // });
+
+  let hourlyButton = document.createElement("button");
+  hourlyButton.className = "hourly-button";
+  hourlyButton.textContent = "Hourly";
+  hourlyButton.addEventListener("click", () => {
+    state.showForecast = "Hourly";
+    render();
+  });
+  // buttonsDiv.append(dailyButton, hourlyButton);
+  dailyForecastDiv.append(daysDiv, hourlyButton);
 
   if (state.weatherData === null) return;
   for (let day of state.weatherData.forecast.forecastday) {
@@ -481,8 +516,72 @@ function renderWeatherForecast(detailsPageDiv: Element) {
     tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
     daysDiv.append(tomorrowDiv);
     dailyForecastDiv.append(daysDiv);
-    detailsPageDiv.append(dailyForecastDiv);
+
+    // detailsPageDiv.append(dailyForecastDiv);
   }
+  return dailyForecastDiv;
+}
+function renderWeatherHourlyForecast() {
+  let dailyForecastDiv = document.createElement("div");
+  dailyForecastDiv.className = "daily-forecast";
+  let daysDiv = document.createElement("div");
+  daysDiv.className = "days";
+  // let buttonsDiv = document.createElement("div");
+  // buttonsDiv.className = "buttons";
+  let dailyButton = document.createElement("button");
+  dailyButton.className = "daily-button";
+  dailyButton.textContent = "Daily";
+  dailyButton.addEventListener("click", () => {
+    state.showForecast = "Daily";
+    render();
+  });
+
+  // let hourlyButton = document.createElement("button");
+  // hourlyButton.className = "hourly-button";
+  // hourlyButton.textContent = "Hourly";
+  // hourlyButton.addEventListener("click", () => {
+  //   state.showForecast = "Hourly";
+  //   render();
+  // });
+  // buttonsDiv.append(dailyButton, hourlyButton);
+  dailyForecastDiv.append(daysDiv, dailyButton);
+
+  if (state.weatherData === null) return;
+  for (let hour of getNextHours()) {
+    let tomorrowDiv = document.createElement("div");
+    tomorrowDiv.className = "tomorrow";
+
+    let hourP = document.createElement("p");
+    hourP.className = "hour";
+    hourP.textContent = `${hour.time.slice(10)}`;
+    // Weather forecast for the next 5 days not the best solution but it works for now
+
+    let forecastIconImg = document.createElement("img");
+    forecastIconImg.className = "forecast-icon";
+    forecastIconImg.src = hour.condition.icon;
+    forecastIconImg.alt = "suny weather";
+
+    let forecastTemperaturesDiv = document.createElement("div");
+    forecastTemperaturesDiv.className = "fprecast__temperatures";
+
+    let forecastMaxTempSpan = document.createElement("span");
+    forecastMaxTempSpan.className = "forecast__max-temp";
+    forecastMaxTempSpan.textContent = `${Math.floor(hour.temp_c)}`;
+
+    // let forecastMinTempSpan = document.createElement("span");
+    // forecastMinTempSpan.className = "forecast__min-temp";
+    // forecastMinTempSpan.textContent = `${Math.floor(hour.day.mintemp_c)}`;
+
+    forecastTemperaturesDiv.append(
+      // forecastMinTempSpan,
+      // " | ",
+      forecastMaxTempSpan
+    );
+    tomorrowDiv.append(hourP, forecastIconImg, forecastTemperaturesDiv);
+    daysDiv.append(tomorrowDiv);
+    dailyForecastDiv.append(daysDiv);
+  }
+  return dailyForecastDiv;
 }
 // Rendering everything
 function render() {

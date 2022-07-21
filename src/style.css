@@ -5,7 +5,6 @@
   box-sizing: border-box;
 }
 
-
 #app {
   display: grid;
   place-content: center;
@@ -46,7 +45,6 @@
 .container-clear {
   background-image: url(https://images.unsplash.com/photo-1435224654926-ecc9f7fa028c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bmlnaHQlMjBza3l8ZW58MHx8MHx8&w=1000&q=80);
   background-size: cover;
-  
 }
 .container-rainy {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
@@ -64,7 +62,7 @@
   text-transform: uppercase;
   font-weight: bolder;
 }
-.search:hover{
+.search:hover {
   background-color: rgb(255, 255, 255);
 }
 /* .search-button {
@@ -97,13 +95,12 @@
   /* margin-left: 20px; */
 }
 
-.description{
+.description {
   border: 1px solid rgba(143, 143, 143, 0.616);
   border-radius: 10px;
   background-color: rgba(143, 143, 143, 0.616);
   padding: 10px 0px;
 }
-
 
 .more-details {
   color: rgba(255, 249, 249, 0.744);
@@ -132,7 +129,6 @@
   text-align: center;
   font-weight: bolder;
   text-transform: uppercase;
-
 }
 .details__country-name {
   text-align: center;
@@ -202,12 +198,13 @@
   background-color: rgba(8, 8, 72, 0.629);
   padding: 0.5rem;
   box-shadow: 3px 3px black;
-  
+  width: 360px;
+  overflow-x: auto;
 }
-.daily-forecast:hover{
+.daily-forecast:hover {
   box-shadow: 5px 5px black;
   border-color: rgba(8, 8, 72, 0.629);
-  background-color: rgba(7, 7, 99, 0.493) ;
+  background-color: rgba(7, 7, 99, 0.493);
 }
 .days {
   display: grid;
@@ -243,12 +240,31 @@
 }
 .sun-rise {
   font-weight: 600;
-
 }
 
 .last-updated {
   padding: 0.5rem;
   margin-top: 0.5rem;
+}
+
+.daily-button {
+  background-color: rgba(255, 255, 255, 0.646);
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 10px;
+  color: black;
+
+  font-weight: bolder;
+  cursor: pointer;
+}
+.hourly-button {
+  background-color: rgba(255, 255, 255, 0.646);
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 10px;
+  color: black;
+  font-weight: bolder;
+  cursor: pointer;
 }
 .rollingBox {
   width: 10px;
@@ -259,13 +275,32 @@
   animation-duration: 8s;
   animation-iteration-count: infinite;
   border-radius: 50%;
-  
 }
 
 @keyframes example {
-  0%   {background-color:rgb(255, 0, 162); left:-50px; top:-40px;}
-  25%  {background-color:rgb(21, 255, 0); left:240px; top:-40px;}
-  50%  {background-color:blue; left:240px; top:420px;}
-  75%  {background-color:rgb(254, 144, 0); left:-50px; top:420px;}
-  100% {background-color:rgb(255, 255, 255); left:-50px; top:-42px;}
+  0% {
+    background-color: rgb(255, 0, 162);
+    left: -50px;
+    top: -40px;
+  }
+  25% {
+    background-color: rgb(21, 255, 0);
+    left: 240px;
+    top: -40px;
+  }
+  50% {
+    background-color: blue;
+    left: 240px;
+    top: 420px;
+  }
+  75% {
+    background-color: rgb(254, 144, 0);
+    left: -50px;
+    top: 420px;
+  }
+  100% {
+    background-color: rgb(255, 255, 255);
+    left: -50px;
+    top: -42px;
+  }
 }
