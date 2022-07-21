@@ -1,4 +1,5 @@
 import "./style.css";
+// WeatherData state
 type WeatherData = {
   location: {
     name: string;
@@ -115,16 +116,17 @@ type WeatherData = {
   };
 };
 
+// State type
 type State = {
   apiKey: string;
   city: string;
   weatherData: WeatherData | null;
   show: "null" | "moreDetails";
 };
-// Kindof created stata, will update it later
+// State
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Roma",
+  city: "Paris",
   weatherData: null,
   show: "null",
 };
@@ -149,12 +151,13 @@ function getCurrentWeatherPage() {
   state.show = "null";
   render();
 }
+
 // This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
   if (state.weatherData === null) return;
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
-
+  // All this classes are so that we can change the background image acording to the weather
   if (state.weatherData.current.condition.text === "Sunny")
     containerDiv.classList.add("container-sunny");
   if (
@@ -166,16 +169,27 @@ function renderCurrentWeather(mainEl: Element) {
     containerDiv.classList.add("container-partly-cloudy");
   if (
     state.weatherData.current.condition.text === "Rain" ||
+    state.weatherData.current.condition.text === "Light rain" ||
     state.weatherData.current.condition.text === "Moderate rain" ||
     state.weatherData.current.condition.text === "Heavy rain" ||
     state.weatherData.current.condition.text ===
-      "Moderate or heavy rain with thunder"
+      "Moderate or heavy rain with thunder" ||
+    state.weatherData.current.condition.text ===
+      "Patchy light rain with thunder" ||
+    state.weatherData.current.condition.text === "Moderate or heavy rain shower" ||
+    state.weatherData.current.condition.text === "Light drizzle"
   )
     containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
     containerDiv.classList.add("container-clear");
-
+  // This allows the user to search the weather in any city
   let formEl = document.createElement("form");
+  formEl.className = "form";
+  formEl.addEventListener("submit", (event) => {
+    event.preventDefault();
+    state.city = inputEl.value;
+    getWeatherDataFromServer();
+  });
 
   let inputEl = document.createElement("input");
   inputEl.className = "search";
@@ -190,13 +204,9 @@ function renderCurrentWeather(mainEl: Element) {
   let cityNameEl = document.createElement("h2");
   cityNameEl.className = "city-name";
   cityNameEl.textContent = state.city;
-  // let temperatureEl = document.createElement("div");
+
   let currentTemperatureEl = document.createElement("h2");
   currentTemperatureEl.className = "current-temperature";
-
-  //   let feelsLikeEl = document.createElement("p");
-  // feelsLikeEl.className = "feels-like";
-  // feelsLikeEl.textContent = `Feels like: ${state.weatherData["current"].feelslike_c}°C`;
 
   currentTemperatureEl.textContent = `${Math.floor(
     state.weatherData.current.temp_c
@@ -223,12 +233,6 @@ function renderCurrentWeather(mainEl: Element) {
   humidityEl.className = "humidity";
   humidityEl.textContent = `Humidity: ${state.weatherData.current.humidity}%`;
 
-  // let lastUpdatedEl = document.createElement("div");
-  // lastUpdatedEl.className = "last-updated";
-
-  // let timeEl = document.createElement("span");
-  // timeEl.className = "time";
-  // timeEl.textContent = state.weatherData["current"].last_updated;
   let moreDetailsEl = document.createElement("p");
   moreDetailsEl.className = "more-details";
   moreDetailsEl.textContent = "More details";
@@ -240,7 +244,7 @@ function renderCurrentWeather(mainEl: Element) {
   descriptionEl.append(iconEl, textEl);
   cityDiv.append(pinDropEl, cityNameEl, currentTemperatureEl, descriptionEl);
   windAndHumidityEl.append(windspeedEl, humidityEl);
-  // lastUpdatedEl.append("Last updated: ", timeEl);
+
   containerDiv.append(
     formEl,
     cityDiv,
@@ -249,8 +253,6 @@ function renderCurrentWeather(mainEl: Element) {
 
     windAndHumidityEl,
     moreDetailsEl
-
-    // lastUpdatedEl
   );
   mainEl.append(containerDiv);
 }
@@ -260,6 +262,15 @@ function renderDetailsPage(mainEl: Element) {
 
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
+
+  let goBackEl = document.createElement("span");
+  goBackEl.className = "material-symbols-outlined";
+  goBackEl.classList.add("go-back");
+  goBackEl.textContent = "arrow_back";
+
+  goBackEl.addEventListener("click", function () {
+    getCurrentWeatherPage();
+  });
 
   let cityCountryEl = document.createElement("div");
   cityCountryEl.className = "city-country-weather";
@@ -333,9 +344,12 @@ function renderDetailsPage(mainEl: Element) {
   detailsMinTempSpan.textContent = `Min: ${Math.floor(
     state.weatherData.forecast.forecastday[0].day.mintemp_c
   )} °C`;
+  let sunRiseEl = document.createElement("p");
+  sunRiseEl.className = "sun-rise";
+  sunRiseEl.textContent = `Sunrise: ${state.weatherData.forecast.forecastday[0].astro.sunrise}`;
 
   detailsTemperaturesDiv.append(detailsMaxTempSpan, detailsMinTempSpan);
-  detailsMainInfoDiv.append(detailsFeelsLikeP, detailsTemperaturesDiv);
+  detailsMainInfoDiv.append(detailsFeelsLikeP, detailsTemperaturesDiv, sunRiseEl);
 
   let detailsMoreInfoDiv = document.createElement("div");
   detailsMoreInfoDiv.className = "more-info";
@@ -351,18 +365,23 @@ function renderDetailsPage(mainEl: Element) {
   let detailsHumidityP = document.createElement("p");
   detailsHumidityP.className = "details__humidity";
   detailsHumidityP.textContent = `Humidity: ${state.weatherData.current.humidity}%`;
+  let sunSetEl = document.createElement("p");
+  sunSetEl.className = "sun-set";
+  sunSetEl.textContent = `Sunset: ${state.weatherData.forecast.forecastday[0].astro.sunset}`;
 
   detailsMoreInfoDiv.append(
     detailsPercipitationP,
     detailsWindSpeedP,
-    detailsHumidityP
+    detailsHumidityP,
+    sunSetEl
   );
   detailsWeatherInfoDiv.append(
     detailsMainInfoDiv,
 
     detailsMoreInfoDiv
   );
-  detailsPageDiv.append(cityCountryEl, detailsWeatherInfoDiv);
+
+  detailsPageDiv.append(goBackEl, cityCountryEl, detailsWeatherInfoDiv);
 
   detailsWeatherInfoDiv.append(detailsMainInfoDiv, detailsMoreInfoDiv);
 
@@ -383,13 +402,17 @@ function renderWeatherForecast(detailsPageDiv: Element) {
 
     let dayP = document.createElement("p");
     dayP.className = "day";
-
+    // Weather forecast for the next 5 days not the best solution but it works for now
     if (day.date === "2022-07-20") {
       dayP.textContent = "Wednesday";
     } else if (day.date === "2022-07-21") {
       dayP.textContent = "Thursday";
     } else if (day.date === "2022-07-22") {
       dayP.textContent = "Friday";
+    } else if (day.date === "2022-07-23") {
+      dayP.textContent = "Saturday";
+    } else if (day.date === "2022-07-24") {
+      dayP.textContent = "Sunday";
     }
     let forecastIconImg = document.createElement("img");
     forecastIconImg.className = "forecast-icon";
@@ -398,12 +421,17 @@ function renderWeatherForecast(detailsPageDiv: Element) {
 
     let forecastTemperaturesDiv = document.createElement("div");
     forecastTemperaturesDiv.className = "fprecast__temperatures";
+
     let forecastMaxTempSpan = document.createElement("span");
     forecastMaxTempSpan.className = "forecast__max-temp";
     forecastMaxTempSpan.textContent = `${Math.floor(day.day.maxtemp_c)}`;
+
     let forecastMinTempSpan = document.createElement("span");
     forecastMinTempSpan.className = "forecast__min-temp";
     forecastMinTempSpan.textContent = `${Math.floor(day.day.mintemp_c)}`;
+
+    let lastUpdated = document.createElement("p");
+    lastUpdated.className = "last-updated";
 
     forecastTemperaturesDiv.append(
       forecastMinTempSpan,
@@ -412,7 +440,7 @@ function renderWeatherForecast(detailsPageDiv: Element) {
     );
     tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
     daysDiv.append(tomorrowDiv);
-    dailyForecastDiv.append(daysDiv);
+    dailyForecastDiv.append(daysDiv, lastUpdated);
     detailsPageDiv.append(dailyForecastDiv);
   }
 }
