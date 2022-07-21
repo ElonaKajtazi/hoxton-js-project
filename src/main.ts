@@ -155,8 +155,11 @@ function getCurrentWeatherPage() {
 // This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
   if (state.weatherData === null) return;
+  let divBox = document.createElement('div')
+  divBox.className = 'rollingBox'
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
+  
   // All this classes are so that we can change the background image acording to the weather
   if (state.weatherData.current.condition.text === "Sunny")
     containerDiv.classList.add("container-sunny");
@@ -229,13 +232,14 @@ function renderCurrentWeather(mainEl: Element) {
   windspeedEl.className = "windspeed";
   windspeedEl.textContent = `Wind Speed: ${state.weatherData.current.wind_kph} km/h`;
 
+
   let humidityEl = document.createElement("p");
   humidityEl.className = "humidity";
   humidityEl.textContent = `Humidity: ${state.weatherData.current.humidity}%`;
 
   let moreDetailsEl = document.createElement("p");
   moreDetailsEl.className = "more-details";
-  moreDetailsEl.textContent = "More details";
+  moreDetailsEl.textContent = "→ More details";
   moreDetailsEl.addEventListener("click", function () {
     getDetailsPage();
   });
@@ -246,6 +250,7 @@ function renderCurrentWeather(mainEl: Element) {
   windAndHumidityEl.append(windspeedEl, humidityEl);
 
   containerDiv.append(
+    divBox,
     formEl,
     cityDiv,
     descriptionEl,
