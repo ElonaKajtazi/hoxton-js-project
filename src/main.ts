@@ -165,12 +165,17 @@ function getDetailsPage() {
   state.show = "moreDetails";
   render();
 }
+
 // This function will display the current weather page
 function getCurrentWeatherPage() {
   state.show = "null";
   render();
 }
-
+function renderMessage() {
+  let mainEl = document.querySelector("#app");
+  if (mainEl === null) return;
+  mainEl.textContent = state.message;
+}
 // This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
   if (state.weatherData === null) return;
@@ -554,7 +559,6 @@ function renderWeatherHourlyForecast() {
     let hourP = document.createElement("p");
     hourP.className = "hour";
     hourP.textContent = `${hour.time.slice(10)}`;
-    // Weather forecast for the next 5 days not the best solution but it works for now
 
     let forecastIconImg = document.createElement("img");
     forecastIconImg.className = "forecast-icon";
@@ -568,15 +572,7 @@ function renderWeatherHourlyForecast() {
     forecastMaxTempSpan.className = "forecast__max-temp";
     forecastMaxTempSpan.textContent = `${Math.floor(hour.temp_c)}`;
 
-    // let forecastMinTempSpan = document.createElement("span");
-    // forecastMinTempSpan.className = "forecast__min-temp";
-    // forecastMinTempSpan.textContent = `${Math.floor(hour.day.mintemp_c)}`;
-
-    forecastTemperaturesDiv.append(
-      // forecastMinTempSpan,
-      // " | ",
-      forecastMaxTempSpan
-    );
+    forecastTemperaturesDiv.append(forecastMaxTempSpan);
     tomorrowDiv.append(hourP, forecastIconImg, forecastTemperaturesDiv);
     daysDiv.append(tomorrowDiv);
     dailyForecastDiv.append(daysDiv);
