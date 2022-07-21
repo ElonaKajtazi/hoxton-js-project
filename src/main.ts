@@ -157,12 +157,21 @@ function renderCurrentWeather(mainEl: Element) {
 
   if (state.weatherData.current.condition.text === "Sunny")
     containerDiv.classList.add("container-sunny");
-  if (state.weatherData.current.condition.text === "Cloudy")
+  if (
+    state.weatherData.current.condition.text === "Cloudy" ||
+    state.weatherData.current.condition.text === "Overcast"
+  )
     containerDiv.classList.add("container-cloudy");
   if (state.weatherData.current.condition.text === "Partly cloudy")
     containerDiv.classList.add("container-partly-cloudy");
-  if (state.weatherData.current.condition.text === "Rain" || state.weatherData.current.condition.text === "Light rain" || state.weatherData.current.condition.text === "Heavy rain")
-    containerDiv.classList.add("container-rain");
+  if (
+    state.weatherData.current.condition.text === "Rain" ||
+    state.weatherData.current.condition.text === "Moderate rain" ||
+    state.weatherData.current.condition.text === "Heavy rain" ||
+    state.weatherData.current.condition.text ===
+      "Moderate or heavy rain with thunder"
+  )
+    containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
     containerDiv.classList.add("container-clear");
 
@@ -247,11 +256,13 @@ function renderCurrentWeather(mainEl: Element) {
 }
 // This function will render the details weather page
 function renderDetailsPage(mainEl: Element) {
+  if (state.weatherData === null) return;
+
   let detailsPageDiv = document.createElement("div");
   detailsPageDiv.className = "details-page";
 
   let cityCountryEl = document.createElement("div");
-  cityCountryEl.className = "city-country";
+  cityCountryEl.className = "city-country-weather";
   let locationDiv = document.createElement("div");
   locationDiv.className = "location";
 
@@ -262,21 +273,11 @@ function renderDetailsPage(mainEl: Element) {
   let detailsCityNameH1 = document.createElement("h1");
   detailsCityNameH1.className = "details__city-name";
   detailsCityNameH1.textContent = state.city;
-  locationDiv.append(pinDropEl, detailsCityNameH1);
 
   let countryNameP = document.createElement("p");
   countryNameP.className = "details__country-name";
-  if (state.weatherData === null) return;
+
   countryNameP.textContent = state.weatherData.location.country;
-
-  cityCountryEl.append(locationDiv, countryNameP);
-
-  let detailsWeatherInfoDiv = document.createElement("div");
-  detailsWeatherInfoDiv.className = "weather-info";
-
-  let detailsMainInfoDiv = document.createElement("div");
-  detailsMainInfoDiv.className = "main-info";
-
   let detailsIconTempDiv = document.createElement("div");
   detailsIconTempDiv.className = "icon-temp";
 
@@ -288,14 +289,29 @@ function renderDetailsPage(mainEl: Element) {
 
   let detailsCurrentTemperatureH2 = document.createElement("h2");
   detailsCurrentTemperatureH2.className = "details__current-temperature";
-  detailsCurrentTemperatureH2.textContent = `${state.weatherData.current.temp_c} °C`;
-
-  detailsIconTempDiv.append(detailsIconImg, detailsCurrentTemperatureH2);
-
+  detailsCurrentTemperatureH2.textContent = `${Math.floor(
+    state.weatherData.current.temp_c
+  )} °C`;
   let detailsWeatherDescriptionH3 = document.createElement("h3");
   detailsWeatherDescriptionH3.className = "weather-description";
   detailsWeatherDescriptionH3.textContent =
     state.weatherData.current.condition.text;
+
+  detailsIconTempDiv.append(detailsIconImg, detailsCurrentTemperatureH2);
+  locationDiv.append(pinDropEl, detailsCityNameH1, detailsIconTempDiv);
+
+  cityCountryEl.append(
+    locationDiv,
+    countryNameP,
+    detailsIconTempDiv,
+    detailsWeatherDescriptionH3
+  );
+
+  let detailsWeatherInfoDiv = document.createElement("div");
+  detailsWeatherInfoDiv.className = "weather-info";
+
+  let detailsMainInfoDiv = document.createElement("div");
+  detailsMainInfoDiv.className = "main-info";
 
   let detailsFeelsLikeP = document.createElement("p");
   detailsFeelsLikeP.className = "details__feels-like";
@@ -306,25 +322,20 @@ function renderDetailsPage(mainEl: Element) {
   let detailsTemperaturesDiv = document.createElement("div");
   detailsTemperaturesDiv.className = "temperatures";
 
-  let detailsMaxTempSpan = document.createElement("span");
+  let detailsMaxTempSpan = document.createElement("p");
   detailsMaxTempSpan.className = "max-temp";
   detailsMaxTempSpan.textContent = `Max: ${Math.floor(
     state.weatherData.forecast.forecastday[0].day.maxtemp_c
   )} °C`;
 
-  let detailsMinTempSpan = document.createElement("span");
+  let detailsMinTempSpan = document.createElement("p");
   detailsMinTempSpan.className = "min-temp";
   detailsMinTempSpan.textContent = `Min: ${Math.floor(
     state.weatherData.forecast.forecastday[0].day.mintemp_c
   )} °C`;
 
-  detailsTemperaturesDiv.append(detailsMaxTempSpan, " / ", detailsMinTempSpan);
-  detailsMainInfoDiv.append(
-    detailsIconTempDiv,
-    detailsWeatherDescriptionH3,
-    detailsFeelsLikeP,
-    detailsTemperaturesDiv
-  );
+  detailsTemperaturesDiv.append(detailsMaxTempSpan, detailsMinTempSpan);
+  detailsMainInfoDiv.append(detailsFeelsLikeP, detailsTemperaturesDiv);
 
   let detailsMoreInfoDiv = document.createElement("div");
   detailsMoreInfoDiv.className = "more-info";
