@@ -26,7 +26,7 @@
   text-align: center;
   color: white;
   width: 260px;
-  background-color: #0000002e;
+  background-color: #00000059;
 }
 .container-sunny {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
@@ -246,6 +246,10 @@
 
 }
 
+.last-updated {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
 .rollingBox {
   width: 10px;
   height: 10px;
