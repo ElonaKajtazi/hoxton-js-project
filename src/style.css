@@ -222,6 +222,11 @@
   border-color: rgba(8, 8, 72, 0.629);
   background-color: rgba(7, 7, 99, 0.493);
 }
+.hourly-forecast:hover {
+  box-shadow: 5px 5px black;
+  border-color: rgba(8, 8, 72, 0.629);
+  background-color: rgba(7, 7, 99, 0.493);
+}
 .days {
   display: grid;
   grid-auto-flow: column;
