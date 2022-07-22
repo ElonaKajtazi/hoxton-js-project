@@ -53,7 +53,7 @@
 }
 .container-fog {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(https://cloudfront-us-east-1.images.arcpublishing.com/gray/JFDZ7U577FFBTCTSLUKDQDSAYQ.png);
+    url(https://transcode-v2.app.engoo.com/image/fetch/f_auto,c_lfill,h_128,dpr_3/https://assets.app.engoo.com/images/0lm2FoUmWgccwNPBSYz84u.jpeg);
   background-size: cover;
 }
 .search {
@@ -216,8 +216,8 @@
   box-shadow: 3px 3px black;
   width: 360px;
 
-  overflow-x: scroll;
-  /* scroll-snap-align: start; */
+  overflow-x: auto;
+
   scroll-snap-type: x mandatory;
 }
 .daily-forecast:hover {
@@ -238,6 +238,7 @@
   /* border: 1px solid black; */
   padding: 0.5rem;
   font-weight: 600;
+  scroll-snap-align: start;
 }
 .weather-description {
   padding-bottom: 0.5rem;
