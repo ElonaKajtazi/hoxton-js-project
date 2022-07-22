@@ -265,8 +265,8 @@
 .last-updated {
   padding: 0.5rem;
   margin-top: 0.5rem;
-  background-image: linear-gradient(rgba(142, 242, 255, 0.555), rgba(47, 47, 255, 0.652));
-  border: 1px solid blue;
+  /* background-image: linear-gradient(rgba(126, 126, 126, 0.555), rgba(5, 5, 85, 0.974)); */
+  /* border: 1px solid blue; */
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
