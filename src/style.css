@@ -51,6 +51,11 @@
     url(https://wallpaperaccess.com/full/7983539.jpg);
   background-size: cover;
 }
+.container-fog {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://cloudfront-us-east-1.images.arcpublishing.com/gray/JFDZ7U577FFBTCTSLUKDQDSAYQ.png);
+  background-size: cover;
+}
 .search {
   background-color: rgba(255, 255, 255, 0.646);
   border: none;
@@ -199,9 +204,21 @@
   padding: 0.5rem;
   box-shadow: 3px 3px black;
   width: 360px;
+  /* 
+  overflow-x: scroll; */
+}
+.hourly-forecast {
+  border: 1px solid black;
+  border-color: rgba(8, 8, 72, 0.629);
+  border-radius: 10px;
+  background-color: rgba(8, 8, 72, 0.629);
+  padding: 0.5rem;
+  box-shadow: 3px 3px black;
+  width: 360px;
 
-  overflow-x: auto;
-
+  overflow-x: scroll;
+  /* scroll-snap-align: start; */
+  scroll-snap-type: x mandatory;
 }
 .daily-forecast:hover {
   box-shadow: 5px 5px black;
@@ -211,7 +228,7 @@
 .days {
   display: grid;
   grid-auto-flow: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   gap: 1.5rem;
 }
@@ -268,6 +285,7 @@
   font-weight: bolder;
   cursor: pointer;
 }
+/* THE SCROLL BAR */
 /* width */
 ::-webkit-scrollbar {
   height: 12px;
@@ -284,6 +302,7 @@
   background: rgba(162, 0, 255, 0.2);
   border-radius: 10px;
 }
+
 .rollingBox {
   width: 10px;
   height: 10px;
