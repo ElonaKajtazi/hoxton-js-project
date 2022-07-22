@@ -154,7 +154,7 @@ function getWeatherDataFromServer() {
 }
 function getNextHours() {
   if (state.weatherData === null) return;
-  
+
   let hour = state.weatherData.forecast.forecastday[0].hour.filter(
     (hour) => hour.time_epoch > state.weatherData.current.last_updated_epoch
   );
@@ -212,7 +212,10 @@ function renderCurrentWeather(mainEl: Element) {
     containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
     containerDiv.classList.add("container-clear");
-  if (state.weatherData.current.condition.text === "Fog")
+  if (
+    state.weatherData.current.condition.text === "Fog" ||
+    state.weatherData.current.condition.text === "Mist"
+  )
     containerDiv.classList.add("container-fog");
   // This allows the user to search the weather in any city
   let formEl = document.createElement("form");
@@ -555,7 +558,7 @@ function renderWeatherHourlyForecast() {
   dailyForecastDiv.append(daysDiv, dailyButton);
 
   if (state.weatherData === null) return;
-  
+
   for (let hour of getNextHours()) {
     let tomorrowDiv = document.createElement("div");
     tomorrowDiv.className = "tomorrow";
