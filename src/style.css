@@ -268,9 +268,9 @@
   /* background-image: linear-gradient(rgba(126, 126, 126, 0.555), rgba(5, 5, 85, 0.974)); */
   /* border: 1px solid blue; */
   border-radius: 5px;
-  text-align: center;
+  /* text-align: center; */
   font-weight: bold;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .daily-button {
