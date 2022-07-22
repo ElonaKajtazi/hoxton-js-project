@@ -128,7 +128,7 @@ type State = {
 // State
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Tirana",
+  city: "Paris",
   weatherData: null,
   show: "null",
   message: "",
@@ -552,6 +552,7 @@ function renderWeatherHourlyForecast() {
   dailyForecastDiv.append(daysDiv, dailyButton);
 
   if (state.weatherData === null) return;
+  
   for (let hour of getNextHours()) {
     let tomorrowDiv = document.createElement("div");
     tomorrowDiv.className = "tomorrow";
@@ -596,4 +597,4 @@ render();
 window.state = state;
 window.getNextHours = getNextHours;
 
-//let date = new Date(json.forecast.forecastday[1].date)
+// let date = new Date(state.weatherData.forecast.forecastday[1].date)
