@@ -96,20 +96,25 @@
 }
 
 .text {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  text-transform: uppercase;
   /* margin-left: 20px; */
 }
 
 .description {
-  border: 1px solid rgba(143, 143, 143, 0.616);
+  border: 3px solid rgba(255, 255, 255, 0.712);
   border-radius: 10px;
-  background-color: rgba(143, 143, 143, 0.616);
+  background-color: rgba(143, 143, 143, 0.831);
   padding: 10px 0px;
 }
 
 .more-details {
   color: rgba(255, 249, 249, 0.744);
   font-size: 0.9rem;
+  border: 1px solid rgba(243, 243, 243, 0.605);
+  background-color: rgba(143, 143, 143, 0.293);
+  border-radius: 15px;
+  padding: 4px 0px;
   /* color: #2c3e50;
   font-weight: 100; */
   cursor: pointer;
@@ -153,6 +158,10 @@
 }
 .details__icon {
   width: 90px;
+  border: 1px solid rgba(255, 255, 255, 0.224);
+  border-radius: 50%;
+  box-shadow: 2px 2px 15px rgba(255, 255, 255, 0.924);
+  background-color: rgba(255, 255, 255, 0.224);
 }
 .weather-info {
   display: grid;
@@ -167,7 +176,8 @@
   grid-auto-flow: column;
   justify-content: start;
   align-items: center;
-  gap: 0.3rem;
+  gap: 20px;
+  padding: 10px 0px;
   /* border: 1px solid black; */
 }
 .weather-description {
@@ -235,7 +245,10 @@
 .tomorrow {
   display: grid;
   text-align: center;
-  /* border: 1px solid black; */
+  border: 1px solid rgba(25, 31, 95, 0.898);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px black;
+  background-color: rgba(25, 31, 95, 0.898);
   padding: 0.5rem;
   font-weight: 600;
   scroll-snap-align: start;
@@ -265,15 +278,22 @@
 .last-updated {
   padding: 0.5rem;
   margin-top: 0.5rem;
+  background-image: linear-gradient(rgba(142, 242, 255, 0.555), rgba(47, 47, 255, 0.652));
+  border: 1px solid blue;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .daily-button {
   background-color: rgba(255, 255, 255, 0.646);
   border: none;
   padding: 0.3rem 0.5rem;
-  border-radius: 10px;
+  margin-bottom: 8px;
+  margin-left: 5px;
+  border-radius: 15px;
   color: black;
-
   font-weight: bolder;
   cursor: pointer;
 }
@@ -281,7 +301,9 @@
   background-color: rgba(255, 255, 255, 0.646);
   border: none;
   padding: 0.3rem 0.5rem;
-  border-radius: 10px;
+  margin-bottom: 8px;
+  margin-left: 5px;
+  border-radius: 15px;
   color: black;
   font-weight: bolder;
   cursor: pointer;
