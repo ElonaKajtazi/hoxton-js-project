@@ -207,7 +207,8 @@ function renderCurrentWeather(mainEl: Element) {
     state.weatherData.current.condition.text ===
       "Moderate or heavy rain shower" ||
     state.weatherData.current.condition.text === "Light drizzle" ||
-    state.weatherData.current.condition.text === "Light rain shower"
+    state.weatherData.current.condition.text === "Light rain shower" ||
+    state.weatherData.current.condition.text === "Patchy rain possible"
   )
     containerDiv.classList.add("container-rainy");
   if (state.weatherData.current.condition.text === "Clear")
@@ -502,6 +503,12 @@ function renderWeatherDailyForecast() {
       dayP.textContent = "Saturday";
     } else if (day.date === "2022-07-24") {
       dayP.textContent = "Sunday";
+    } else if (day.date === "2022-07-25") {
+      dayP.textContent = "Monday";
+    } else if (day.date === "2022-07-26") {
+      dayP.textContent = "Tuesday";
+    } else if (day.date === "2022-07-27") {
+      dayP.textContent = "Wednesday";
     }
     let forecastIconImg = document.createElement("img");
     forecastIconImg.className = "forecast-icon";
