@@ -125,7 +125,7 @@ type State = {
 // State
 let state: State = {
   apiKey: "18f4c97774164c96b9b192555221807",
-  city: "Pristina",
+  city: "Gjakova",
   weatherData: null,
   show: "null",
   message: "",
