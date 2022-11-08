@@ -244,6 +244,7 @@
   padding: 0.5rem;
   font-weight: 600;
   scroll-snap-align: start;
+  place-items: center;
 }
 .weather-description {
   padding-bottom: 0.5rem;

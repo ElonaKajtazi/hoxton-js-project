@@ -1,118 +1,115 @@
 import "./style.css";
-// WeatherData state
+// WeatherData types
+type Hour = {
+  time_epoch: number;
+  time: string;
+  temp_c: number;
+  temp_f: number;
+  is_day: number;
+  condition: Condition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_degree: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  windchill_c: number;
+  windchill_f: number;
+  heatindex_c: number;
+  heatindex_f: number;
+  dewpoint_c: number;
+  dewpoint_f: number;
+  will_it_rain: number;
+  will_it_snow: number;
+  vis_km: number;
+  vis_miles: number;
+  uv: number;
+  gust_mph: number;
+  gust_kph: number;
+};
+type Location = {
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+  tz_id: string;
+  localtime_epoch: number;
+  localtime: string;
+};
+type Condition = {
+  text: string;
+  icon: string;
+  code: number;
+};
+type Current = {
+  last_updated_epoch: number;
+  last_updated: string;
+  temp_c: number;
+  temp_f: number;
+  is_day: number;
+  condition: Condition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_degree: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  vis_km: number;
+  vis_miles: number;
+  uv: number;
+  gust_mph: number;
+  gust_kph: number;
+};
+type Day = {
+  maxtemp_c: number;
+  maxtemp_f: number;
+  mintemp_c: number;
+  mintemp_f: number;
+  avgtemp_c: number;
+  avgtemp_f: number;
+  maxwind_mph: number;
+  maxwind_kph: number;
+  totalprecip_mm: number;
+  totalprecip_in: number;
+  avgvis_km: number;
+  avgvis_miles: number;
+  avghumidity: number;
+  condition: Condition;
+  uv: number;
+};
+type Astro = {
+  sunrise: string;
+  sunset: string;
+  moonrise: string;
+  moonset: string;
+  moon_phase: string;
+  moon_illumination: number;
+};
+type ForecastDay = {
+  date: string;
+  date_epoch: number;
+  day: Day;
+  astro: Astro;
+  hour: Hour[];
+};
 type WeatherData = {
-  location: {
-    name: string;
-    region: string;
-    country: string;
-    lat: number;
-    lon: number;
-    tz_id: string;
-    localtime_epoch: number;
-    localtime: string;
-  };
-  current: {
-    last_updated_epoch: number;
-    last_updated: string;
-    temp_c: number;
-    temp_f: number;
-    is_day: number;
-    condition: {
-      text: string;
-      icon: string;
-      code: number;
-    };
-    wind_mph: number;
-    wind_kph: number;
-    wind_degree: number;
-    wind_dir: string;
-    pressure_mb: number;
-    pressure_in: number;
-    precip_mm: number;
-    precip_in: number;
-    humidity: number;
-    cloud: number;
-    feelslike_c: number;
-    feelslike_f: number;
-    vis_km: number;
-    vis_miles: number;
-    uv: number;
-    gust_mph: number;
-    gust_kph: number;
-  };
+  location: Location;
+  current: Current;
   forecast: {
-    forecastday: [
-      {
-        date: string;
-        date_epoch: number;
-        day: {
-          maxtemp_c: number;
-          maxtemp_f: number;
-          mintemp_c: number;
-          mintemp_f: number;
-          avgtemp_c: number;
-          avgtemp_f: number;
-          maxwind_mph: number;
-          maxwind_kph: number;
-          totalprecip_mm: number;
-          totalprecip_in: number;
-          avgvis_km: number;
-          avgvis_miles: number;
-          avghumidity: number;
-          condition: {
-            text: string;
-            icon: string;
-            code: number;
-          };
-          uv: number;
-        };
-        astro: {
-          sunrise: string;
-          sunset: string;
-          moonrise: string;
-          moonset: string;
-          moon_phase: string;
-          moon_illumination: number;
-        };
-        hour: {
-          time_epoch: number;
-          time: string;
-          temp_c: number;
-          temp_f: number;
-          is_day: number;
-          condition: {
-            text: string;
-            icon: string;
-            code: number;
-          };
-          wind_mph: number;
-          wind_kph: number;
-          wind_degree: number;
-          wind_dir: string;
-          pressure_mb: number;
-          pressure_in: number;
-          precip_mm: number;
-          precip_in: number;
-          humidity: number;
-          cloud: number;
-          feelslike_c: number;
-          feelslike_f: number;
-          windchill_c: number;
-          windchill_f: number;
-          heatindex_c: number;
-          heatindex_f: number;
-          dewpoint_c: number;
-          dewpoint_f: number;
-          will_it_rain: number;
-          will_it_snow: number;
-          vis_km: number;
-          vis_miles: number;
-          uv: number;
-          gust_mph: number;
-          gust_kph: number;
-        };
-      }
-    ];
+    forecastday: ForecastDay[];
   };
 };
 
@@ -152,11 +149,12 @@ function getWeatherDataFromServer() {
       render();
     });
 }
+// this function gets the next hours of the day weather forecast
 function getNextHours() {
   if (state.weatherData === null) return;
 
   let hour = state.weatherData.forecast.forecastday[0].hour.filter(
-    (hour) => hour.time_epoch > state.weatherData.current.last_updated_epoch
+    (hour) => hour.time_epoch > state.weatherData!.current.last_updated_epoch
   );
   if (hour.length > 0) return hour;
   else return state.weatherData.forecast.forecastday[1].hour;
@@ -172,11 +170,12 @@ function getCurrentWeatherPage() {
   state.show = "null";
   render();
 }
-// function renderMessage() {
-//   let mainEl = document.querySelector("#app");
-//   if (mainEl === null) return;
-//   mainEl.textContent = state.message;
-// }
+// converts the date into a day
+function getTheDay(someDate: string) {
+  let date = new Date(someDate);
+  let day = date.getDay();
+  return day;
+}
 // This function will render the current weather page
 function renderCurrentWeather(mainEl: Element) {
   if (state.weatherData === null) return;
@@ -301,6 +300,121 @@ function renderCurrentWeather(mainEl: Element) {
     moreDetailsEl
   );
   mainEl.append(containerDiv);
+}
+
+function renderWeatherDailyForecast() {
+  let dailyForecastDiv = document.createElement("div");
+  dailyForecastDiv.className = "daily-forecast";
+  let daysDiv = document.createElement("div");
+  daysDiv.className = "days";
+
+  let hourlyButton = document.createElement("button");
+  hourlyButton.className = "hourly-button";
+  hourlyButton.textContent = "Hourly";
+  hourlyButton.addEventListener("click", () => {
+    state.showForecast = "Hourly";
+    render();
+  });
+
+  dailyForecastDiv.append(daysDiv, hourlyButton);
+
+  if (state.weatherData === null) return;
+  for (let day of state.weatherData.forecast.forecastday) {
+    let tomorrowDiv = document.createElement("div");
+    tomorrowDiv.className = "tomorrow";
+
+    let dayP = document.createElement("p");
+    dayP.className = "day";
+    let theDay = getTheDay(day.date);
+    // Getting the given day...
+    if (theDay === 1) {
+      dayP.textContent = "Monday";
+    } else if (theDay === 2) {
+      dayP.textContent = "Tuesday";
+    } else if (theDay === 3) {
+      dayP.textContent = "Wednesday";
+    } else if (theDay === 4) {
+      dayP.textContent = "Thursday";
+    } else if (theDay === 5) {
+      dayP.textContent = "Friday";
+    } else if (theDay === 6) {
+      dayP.textContent = "Saturday";
+    } else if (theDay === 7) {
+      dayP.textContent = "Sunday";
+    }
+    let forecastIconImg = document.createElement("img");
+    forecastIconImg.className = "forecast-icon";
+    forecastIconImg.src = day.day.condition.icon;
+    forecastIconImg.alt = "suny weather";
+
+    let forecastTemperaturesDiv = document.createElement("div");
+    forecastTemperaturesDiv.className = "fprecast__temperatures";
+
+    let forecastMaxTempSpan = document.createElement("span");
+    forecastMaxTempSpan.className = "forecast__max-temp";
+    forecastMaxTempSpan.textContent = `${Math.floor(day.day.maxtemp_c)}`;
+
+    let forecastMinTempSpan = document.createElement("span");
+    forecastMinTempSpan.className = "forecast__min-temp";
+    forecastMinTempSpan.textContent = `${Math.floor(day.day.mintemp_c)}`;
+
+    forecastTemperaturesDiv.append(
+      forecastMinTempSpan,
+      " | ",
+      forecastMaxTempSpan
+    );
+    tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
+    daysDiv.append(tomorrowDiv);
+    dailyForecastDiv.append(daysDiv);
+  }
+  return dailyForecastDiv;
+}
+
+function renderWeatherHourlyForecast() {
+  let dailyForecastDiv = document.createElement("div");
+  dailyForecastDiv.className = "hourly-forecast";
+  let daysDiv = document.createElement("div");
+  daysDiv.className = "days";
+
+  let dailyButton = document.createElement("button");
+  dailyButton.className = "daily-button";
+  dailyButton.textContent = "Daily";
+  dailyButton.addEventListener("click", () => {
+    state.showForecast = "Daily";
+    render();
+  });
+
+  dailyForecastDiv.append(daysDiv, dailyButton);
+
+  if (state.weatherData === null) return;
+  let getNextHoursVar = getNextHours();
+  if (!getNextHoursVar) return;
+  for (let hour of getNextHoursVar) {
+    let tomorrowDiv = document.createElement("div");
+    tomorrowDiv.className = "tomorrow";
+
+    let hourP = document.createElement("p");
+    hourP.className = "hour";
+    hourP.textContent = `${hour.time.slice(10)}`;
+
+    let forecastIconImg = document.createElement("img");
+    forecastIconImg.className = "forecast-icon";
+    forecastIconImg.src = hour.condition.icon;
+    forecastIconImg.alt = "suny weather";
+
+    let forecastTemperaturesDiv = document.createElement("div");
+    forecastTemperaturesDiv.className = "fprecast__temperatures";
+
+    let forecastMaxTempSpan = document.createElement("span");
+    forecastMaxTempSpan.className = "forecast__max-temp";
+    forecastMaxTempSpan.textContent = `${Math.floor(hour.temp_c)}`;
+
+    forecastTemperaturesDiv.append(forecastMaxTempSpan);
+    tomorrowDiv.append(hourP, forecastIconImg, forecastTemperaturesDiv);
+    daysDiv.append(tomorrowDiv);
+    dailyForecastDiv.append(daysDiv);
+  }
+  return dailyForecastDiv;
 }
 // This function will render the details weather page
 function renderDetailsPage(mainEl: Element) {
@@ -443,155 +557,17 @@ function renderDetailsPage(mainEl: Element) {
 
   let dailyForecast = renderWeatherDailyForecast();
   let hourlyForecast = renderWeatherHourlyForecast();
+
   if (state.showForecast === "Daily") {
+    if (!dailyForecast) return;
     detailsPageDiv.append(dailyForecast);
   } else {
+    if (!hourlyForecast) return;
     detailsPageDiv.append(hourlyForecast);
   }
   mainEl.append(detailsPageDiv);
 
-  // renderWeatherDailyForecast(detailsPageDiv);
-  // if ((state.showForecast = "Hourly")) {
-  //   renderWeatherHourlyForecast(detailsPageDiv);
-  // } else {
-  //   renderWeatherDailyForecast();
-  // }
-  // renderWeatherDailyForecast(detailsPageDiv);
   detailsPageDiv.append(lastUpdated);
-}
-
-function renderWeatherDailyForecast() {
-  let dailyForecastDiv = document.createElement("div");
-  dailyForecastDiv.className = "daily-forecast";
-  let daysDiv = document.createElement("div");
-  daysDiv.className = "days";
-  // let buttonsDiv = document.createElement("div");
-  // buttonsDiv.className = "buttons";
-  // let dailyButton = document.createElement("button");
-  // dailyButton.className = "daily-button";
-  // dailyButton.textContent = "Daily";
-  // dailyButton.addEventListener("click", () => {
-  //   state.showForecast = "Daily";
-  //   render();
-  // });
-
-  let hourlyButton = document.createElement("button");
-  hourlyButton.className = "hourly-button";
-  hourlyButton.textContent = "Hourly";
-  hourlyButton.addEventListener("click", () => {
-    state.showForecast = "Hourly";
-    render();
-  });
-  // buttonsDiv.append(dailyButton, hourlyButton);
-  dailyForecastDiv.append(daysDiv, hourlyButton);
-
-  if (state.weatherData === null) return;
-  for (let day of state.weatherData.forecast.forecastday) {
-    let tomorrowDiv = document.createElement("div");
-    tomorrowDiv.className = "tomorrow";
-
-    let dayP = document.createElement("p");
-    dayP.className = "day";
-    // Weather forecast for the next 5 days not the best solution but it works for now
-    if (day.date === "2022-07-20") {
-      dayP.textContent = "Wednesday";
-    } else if (day.date === "2022-07-21") {
-      dayP.textContent = "Thursday";
-    } else if (day.date === "2022-07-22") {
-      dayP.textContent = "Friday";
-    } else if (day.date === "2022-07-23") {
-      dayP.textContent = "Saturday";
-    } else if (day.date === "2022-07-24") {
-      dayP.textContent = "Sunday";
-    } else if (day.date === "2022-07-25") {
-      dayP.textContent = "Monday";
-    } else if (day.date === "2022-07-26") {
-      dayP.textContent = "Tuesday";
-    } else if (day.date === "2022-07-27") {
-      dayP.textContent = "Wednesday";
-    }
-    let forecastIconImg = document.createElement("img");
-    forecastIconImg.className = "forecast-icon";
-    forecastIconImg.src = day.day.condition.icon;
-    forecastIconImg.alt = "suny weather";
-
-    let forecastTemperaturesDiv = document.createElement("div");
-    forecastTemperaturesDiv.className = "fprecast__temperatures";
-
-    let forecastMaxTempSpan = document.createElement("span");
-    forecastMaxTempSpan.className = "forecast__max-temp";
-    forecastMaxTempSpan.textContent = `${Math.floor(day.day.maxtemp_c)}`;
-
-    let forecastMinTempSpan = document.createElement("span");
-    forecastMinTempSpan.className = "forecast__min-temp";
-    forecastMinTempSpan.textContent = `${Math.floor(day.day.mintemp_c)}`;
-
-    forecastTemperaturesDiv.append(
-      forecastMinTempSpan,
-      " | ",
-      forecastMaxTempSpan
-    );
-    tomorrowDiv.append(dayP, forecastIconImg, forecastTemperaturesDiv);
-    daysDiv.append(tomorrowDiv);
-    dailyForecastDiv.append(daysDiv);
-
-    // detailsPageDiv.append(dailyForecastDiv);
-  }
-  return dailyForecastDiv;
-}
-function renderWeatherHourlyForecast() {
-  let dailyForecastDiv = document.createElement("div");
-  dailyForecastDiv.className = "hourly-forecast";
-  let daysDiv = document.createElement("div");
-  daysDiv.className = "days";
-  // let buttonsDiv = document.createElement("div");
-  // buttonsDiv.className = "buttons";
-  let dailyButton = document.createElement("button");
-  dailyButton.className = "daily-button";
-  dailyButton.textContent = "Daily";
-  dailyButton.addEventListener("click", () => {
-    state.showForecast = "Daily";
-    render();
-  });
-
-  // let hourlyButton = document.createElement("button");
-  // hourlyButton.className = "hourly-button";
-  // hourlyButton.textContent = "Hourly";
-  // hourlyButton.addEventListener("click", () => {
-  //   state.showForecast = "Hourly";
-  //   render();
-  // });
-  // buttonsDiv.append(dailyButton, hourlyButton);
-  dailyForecastDiv.append(daysDiv, dailyButton);
-
-  if (state.weatherData === null) return;
-
-  for (let hour of getNextHours()) {
-    let tomorrowDiv = document.createElement("div");
-    tomorrowDiv.className = "tomorrow";
-
-    let hourP = document.createElement("p");
-    hourP.className = "hour";
-    hourP.textContent = `${hour.time.slice(10)}`;
-
-    let forecastIconImg = document.createElement("img");
-    forecastIconImg.className = "forecast-icon";
-    forecastIconImg.src = hour.condition.icon;
-    forecastIconImg.alt = "suny weather";
-
-    let forecastTemperaturesDiv = document.createElement("div");
-    forecastTemperaturesDiv.className = "fprecast__temperatures";
-
-    let forecastMaxTempSpan = document.createElement("span");
-    forecastMaxTempSpan.className = "forecast__max-temp";
-    forecastMaxTempSpan.textContent = `${Math.floor(hour.temp_c)}`;
-
-    forecastTemperaturesDiv.append(forecastMaxTempSpan);
-    tomorrowDiv.append(hourP, forecastIconImg, forecastTemperaturesDiv);
-    daysDiv.append(tomorrowDiv);
-    dailyForecastDiv.append(daysDiv);
-  }
-  return dailyForecastDiv;
 }
 // Rendering everything
 function render() {
@@ -607,7 +583,5 @@ function render() {
 
 getWeatherDataFromServer();
 render();
-window.state = state;
-window.getNextHours = getNextHours;
-
-// let date = new Date(state.weatherData.forecast.forecastday[1].date)
+// window.state = state;
+// window.getNextHours = getNextHours;
