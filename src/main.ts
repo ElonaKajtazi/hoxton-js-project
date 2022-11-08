@@ -134,7 +134,7 @@ let state: State = {
 // create a function that will get the weather data from the API
 function getWeatherDataFromServer() {
   fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=${state.apiKey}&q=${state.city}&days=10&aqi=yes&alerts=no`
+    `https://api.weatherapi.com/v1/forecast.json?key=${state.apiKey}&q=${state.city}&days=10&aqi=yes&alerts=no`
   )
     .then((rsp) => {
       if (rsp.ok) return rsp.json();
