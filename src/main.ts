@@ -184,7 +184,7 @@ function renderCurrentWeather(mainEl: Element) {
   let containerDiv = document.createElement("div");
   containerDiv.className = "container";
 
-  // All this classes are so that we can change the background image acording to the weather with css
+  // All these classes are so that we can change the background image acording to the weather with css
   if (state.weatherData.current.condition.text === "Sunny")
     containerDiv.classList.add("container-sunny");
   if (
@@ -339,7 +339,7 @@ function renderWeatherDailyForecast() {
       dayP.textContent = "Friday";
     } else if (theDay === 6) {
       dayP.textContent = "Saturday";
-    } else if (theDay === 7) {
+    } else if (theDay === 0) {
       dayP.textContent = "Sunday";
     }
     let forecastIconImg = document.createElement("img");
